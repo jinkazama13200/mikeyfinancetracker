@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import axios from 'axios';
 
 interface User {
@@ -21,6 +21,20 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
+  useEffect(() => {
+    // Check if user data exists in localStorage on initial load
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      try {
+        const parsedUser = JSON.parse(storedUserData);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error('Error parsing user data from localStorage', error);
+        localStorage.removeItem('userData');
+      }
+    }
+  }, []);
+
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
       const response = await axios.get(API_URL);
@@ -29,11 +43,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const foundUser = users.find((u: any) => u.username === username && u.password === password);
       
       if (foundUser) {
-        setUser({
+        const userData = {
           id: foundUser.id,
           username: foundUser.username,
           email: foundUser.email || `${foundUser.username}@example.com`,
-        });
+        };
+        
+        setUser(userData);
+        localStorage.setItem('userData', JSON.stringify(userData));
         return true;
       } else {
         console.error('Invalid credentials');
@@ -67,11 +84,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       };
       
       const createUserResponse = await axios.post(API_URL, newUser);
-      setUser({
+      const userData = {
         id: createUserResponse.data.id,
         username: createUserResponse.data.username,
         email: createUserResponse.data.email || email,
-      });
+      };
+      
+      setUser(userData);
+      localStorage.setItem('userData', JSON.stringify(userData));
       return true;
     } catch (error) {
       console.error('Registration error:', error);
@@ -81,6 +101,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('userData');
   };
 
   return (
