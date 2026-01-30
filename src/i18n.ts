@@ -221,8 +221,9 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return (savedLang === 'en' || savedLang === 'vi') ? savedLang as Language : 'en';
   });
 
-  // Save language preference to localStorage
+  // Update document language attribute and save to localStorage when language changes
   useEffect(() => {
+    document.documentElement.lang = language;
     localStorage.setItem('language', language);
   }, [language]);
 
@@ -238,9 +239,9 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     t
   };
 
-  return React.createElement(
-    I18nContext.Provider,
-    { value: value },
-    children
+  return (
+    <I18nContext.Provider value={value}>
+      {children}
+    </I18nContext.Provider>
   );
 };
