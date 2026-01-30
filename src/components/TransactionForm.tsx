@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTranslation } from '../i18n';
 
 interface TransactionFormData {
   type: 'income' | 'expense';
@@ -14,7 +13,6 @@ interface TransactionFormProps {
 }
 
 const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) => {
-  const { t } = useTranslation();
   const [formData, setFormData] = useState<TransactionFormData>({
     type: 'expense',
     amount: '',
@@ -46,83 +44,61 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200 shadow-sm">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
-            {t('transactionType')}
+          <label htmlFor="type" className="block text-sm font-medium text-gray-700">
+            Type
           </label>
-          <div className="relative">
-            <select
-              id="type"
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-3 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300"
-            >
-              <option value="income">{t('income')}</option>
-              <option value="expense">{t('expense')}</option>
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-              </svg>
-            </div>
-          </div>
+          <select
+            id="type"
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          >
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
         </div>
         
         <div>
-          <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
-            {t('amount')}
+          <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
+            Amount
           </label>
-          <div className="relative rounded-md shadow-sm">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500 sm:text-sm">$</span>
-            </div>
-            <input
-              type="number"
-              id="amount"
-              name="amount"
-              value={formData.amount}
-              onChange={handleChange}
-              min="0.01"
-              step="0.01"
-              required
-              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 py-3 sm:text-sm border-gray-300 rounded-lg"
-              placeholder="0.00"
-            />
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span className="text-gray-500 sm:text-sm">{formData.currency}</span>
-            </div>
-          </div>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            value={formData.amount}
+            onChange={handleChange}
+            min="0.01"
+            step="0.01"
+            required
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+            placeholder="0.00"
+          />
         </div>
         
         <div>
-          <label htmlFor="currency" className="block text-sm font-medium text-gray-700 mb-1">
-            {t('currency')}
+          <label htmlFor="currency" className="block text-sm font-medium text-gray-700">
+            Currency
           </label>
-          <div className="relative">
-            <select
-              id="currency"
-              name="currency"
-              value={formData.currency}
-              onChange={handleChange}
-              className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-3 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300"
-            >
-              <option value="VND">{t('vnd')}</option>
-              <option value="USD">{t('usd')}</option>
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-              </svg>
-            </div>
-          </div>
+          <select
+            id="currency"
+            name="currency"
+            value={formData.currency}
+            onChange={handleChange}
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          >
+            <option value="VND">VND</option>
+            <option value="USD">USD</option>
+          </select>
         </div>
         
         <div>
-          <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">
-            {t('date')}
+          <label htmlFor="date" className="block text-sm font-medium text-gray-700">
+            Date
           </label>
           <input
             type="date"
@@ -131,13 +107,13 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             value={formData.date}
             onChange={handleChange}
             required
-            className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 sm:text-sm"
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           />
         </div>
         
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-            {t('description')}
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+            Description
           </label>
           <input
             type="text"
@@ -146,21 +122,18 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             value={formData.description}
             onChange={handleChange}
             required
-            className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 sm:text-sm"
-            placeholder={t('description')}
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+            placeholder="Enter description"
           />
         </div>
       </div>
       
-      <div className="flex justify-end pt-4">
+      <div className="flex justify-end">
         <button
           type="submit"
-          className="inline-flex justify-center items-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 transform hover:scale-[1.02]"
+          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="-ml-1 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-          </svg>
-          {t('add')}
+          Add Transaction
         </button>
       </div>
     </form>

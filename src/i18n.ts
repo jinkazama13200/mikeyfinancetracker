@@ -18,18 +18,41 @@ const resources: Translations = {
     financeTracker: "Personal Finance Tracker",
     welcome: "Welcome,",
     logout: "Logout",
+    cancel: "Cancel",
+    delete: "Delete",
+    confirm: "Confirm",
+    close: "Close",
+    
+    // Navigation
+    dashboard: "Dashboard",
+    transactions: "Transactions",
+    reports: "Reports",
+    settings: "Settings",
     
     // Authentication
     signIn: "Sign in",
     signUp: "Sign up",
+    signOut: "Sign out",
     username: "Username",
     email: "Email",
     password: "Password",
+    confirmPassword: "Confirm Password",
+    forgotPassword: "Forgot password?",
+    dontHaveAccount: "Don't have an account?",
+    alreadyHaveAccount: "Already have an account?",
+    registerHere: "Register here",
+    signInHere: "Sign in here",
+    invalidCredentials: "Invalid username or password",
+    passwordsNotMatch: "Passwords do not match",
     
     // Dashboard
     balance: "Balance",
     income: "Income",
     expenses: "Expenses",
+    totalIncome: "Total Income",
+    totalExpenses: "Total Expenses",
+    recentTransactions: "Recent Transactions",
+    viewAll: "View all",
     
     // Transactions
     addTransaction: "Add Transaction",
@@ -37,49 +60,89 @@ const resources: Translations = {
     amount: "Amount",
     description: "Description",
     date: "Date",
-    incomeLabel: "Income",  // Changed from 'income' to avoid conflict
-    expenseLabel: "Expense", // Changed from 'expense' to avoid conflict
+    category: "Category",
+    incomeLabel: "Income",
+    expenseLabel: "Expense",
     add: "Add",
     edit: "Edit",
     remove: "Remove",
     deleteConfirmation: "Are you sure you want to delete this transaction?",
-    
-    // Categories
-    food: "Food",
-    other: "Other",
     
     // Currency
     currency: "Currency",
     vnd: "Vietnamese Dong (VND)",
     usd: "US Dollar (USD)",
     
+    // Categories
+    food: "Food",
+    transport: "Transport",
+    shopping: "Shopping",
+    entertainment: "Entertainment",
+    bills: "Bills",
+    salary: "Salary",
+    gift: "Gift",
+    other: "Other",
+    
     // Buttons
     save: "Save",
     update: "Update",
+    search: "Search",
+    filter: "Filter",
+    reset: "Reset",
     
     // Messages
     success: "Success",
     error: "Error",
+    loading: "Loading...",
     noData: "No data available",
     tryAgain: "Please try again",
+    
+    // Forms
+    requiredField: "This field is required",
+    invalidEmail: "Please enter a valid email",
+    minLength: "Must be at least {{count}} characters",
+    maxLength: "Must be less than {{count}} characters",
   },
   vi: {
     // General
     financeTracker: "Quản Lý Tài Chính Cá Nhân",
     welcome: "Chào mừng,",
     logout: "Đăng xuất",
+    cancel: "Hủy",
+    delete: "Xóa",
+    confirm: "Xác nhận",
+    close: "Đóng",
+    
+    // Navigation
+    dashboard: "Bảng điều khiển",
+    transactions: "Giao dịch",
+    reports: "Báo cáo",
+    settings: "Cài đặt",
     
     // Authentication
     signIn: "Đăng nhập",
     signUp: "Đăng ký",
+    signOut: "Đăng xuất",
     username: "Tên đăng nhập",
     email: "Email",
     password: "Mật khẩu",
+    confirmPassword: "Xác nhận mật khẩu",
+    forgotPassword: "Quên mật khẩu?",
+    dontHaveAccount: "Chưa có tài khoản?",
+    alreadyHaveAccount: "Đã có tài khoản?",
+    registerHere: "Đăng ký tại đây",
+    signInHere: "Đăng nhập tại đây",
+    invalidCredentials: "Tên đăng nhập hoặc mật khẩu không đúng",
+    passwordsNotMatch: "Mật khẩu không khớp",
     
     // Dashboard
     balance: "Số dư",
     income: "Thu nhập",
     expenses: "Chi tiêu",
+    totalIncome: "Tổng thu nhập",
+    totalExpenses: "Tổng chi tiêu",
+    recentTransactions: "Giao dịch gần đây",
+    viewAll: "Xem tất cả",
     
     // Transactions
     addTransaction: "Thêm giao dịch",
@@ -87,31 +150,48 @@ const resources: Translations = {
     amount: "Số tiền",
     description: "Mô tả",
     date: "Ngày",
-    incomeLabel: "Thu nhập",  // Changed from 'income' to avoid conflict
-    expenseLabel: "Chi tiêu", // Changed from 'expense' to avoid conflict
+    category: "Danh mục",
+    incomeLabel: "Thu nhập",
+    expenseLabel: "Chi tiêu",
     add: "Thêm",
     edit: "Sửa",
     remove: "Xóa",
     deleteConfirmation: "Bạn có chắc chắn muốn xóa giao dịch này?",
-    
-    // Categories
-    food: "Đồ ăn",
-    other: "Khác",
     
     // Currency
     currency: "Tiền tệ",
     vnd: "Đồng Việt Nam (VND)",
     usd: "Đô la Mỹ (USD)",
     
+    // Categories
+    food: "Đồ ăn",
+    transport: "Giao thông",
+    shopping: "Mua sắm",
+    entertainment: "Giải trí",
+    bills: "Hóa đơn",
+    salary: "Lương",
+    gift: "Quà tặng",
+    other: "Khác",
+    
     // Buttons
     save: "Lưu",
     update: "Cập nhật",
+    search: "Tìm kiếm",
+    filter: "Lọc",
+    reset: "Đặt lại",
     
     // Messages
     success: "Thành công",
     error: "Lỗi",
+    loading: "Đang tải...",
     noData: "Không có dữ liệu",
     tryAgain: "Vui lòng thử lại",
+    
+    // Forms
+    requiredField: "Trường này là bắt buộc",
+    invalidEmail: "Vui lòng nhập email hợp lệ",
+    minLength: "Phải có ít nhất {{count}} ký tự",
+    maxLength: "Phải ít hơn {{count}} ký tự",
   }
 };
 
