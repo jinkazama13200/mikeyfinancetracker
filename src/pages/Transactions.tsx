@@ -10,7 +10,7 @@ const Transactions: React.FC = () => {
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState<any[]>([]);
   const [showForm, setShowForm] = useState(false);
-  const [language, setLanguage] = useState<'en' | 'vi'>('en');
+  const { language, setLanguage } = useTranslation();
 
   // Load transactions for the user
   useEffect(() => {

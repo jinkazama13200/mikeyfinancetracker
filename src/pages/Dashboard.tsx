@@ -12,7 +12,7 @@ const Dashboard: React.FC = () => {
   const [income, setIncome] = useState<number>(0);
   const [expenses, setExpenses] = useState<number>(0);
   const [transactions, setTransactions] = useState<any[]>([]);
-  const [language, setLanguage] = useState<'en' | 'vi'>('en');
+  const { language, setLanguage } = useTranslation();
 
   // Load transactions for the user
   useEffect(() => {
