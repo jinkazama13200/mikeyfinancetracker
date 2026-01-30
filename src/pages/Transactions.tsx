@@ -11,13 +11,13 @@ const Transactions: React.FC = () => {
   // Mock data for demonstration
   useEffect(() => {
     setTransactions([
-      { id: '1', type: 'income', amount: 2500, description: 'Salary', date: '2023-05-15' },
-      { id: '2', type: 'expense', amount: 50, description: 'Groceries', date: '2023-05-16' },
-      { id: '3', type: 'expense', amount: 120, description: 'Gas', date: '2023-05-17' },
-      { id: '4', type: 'income', amount: 300, description: 'Freelance work', date: '2023-05-18' },
-      { id: '5', type: 'expense', amount: 80, description: 'Dinner', date: '2023-05-19' },
-      { id: '6', type: 'expense', amount: 25, description: 'Coffee', date: '2023-05-20' },
-      { id: '7', type: 'income', amount: 150, description: 'Gift', date: '2023-05-21' },
+      { id: '1', type: 'income' as const, amount: 2500, description: 'Salary', date: '2023-05-15' },
+      { id: '2', type: 'expense' as const, amount: 50, description: 'Groceries', date: '2023-05-16' },
+      { id: '3', type: 'expense' as const, amount: 120, description: 'Gas', date: '2023-05-17' },
+      { id: '4', type: 'income' as const, amount: 300, description: 'Freelance work', date: '2023-05-18' },
+      { id: '5', type: 'expense' as const, amount: 80, description: 'Dinner', date: '2023-05-19' },
+      { id: '6', type: 'expense' as const, amount: 25, description: 'Coffee', date: '2023-05-20' },
+      { id: '7', type: 'income' as const, amount: 150, description: 'Gift', date: '2023-05-21' },
     ]);
   }, []);
 
