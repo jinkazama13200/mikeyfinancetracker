@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import axios from 'axios';
+import { userApi } from '../services/api';
 
 interface User {
   id: string;
@@ -13,8 +13,6 @@ interface AuthContextType {
   register: (username: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
 }
-
-const API_URL = 'https://64de102a825d19d9bfb1f7ba.mockapi.io/users';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -37,8 +35,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const response = await axios.get(API_URL);
-      const users = response.data;
+      const users = await userApi.getAllUsers();
       
       const foundUser = users.find((u: any) => u.username === username && u.password === password);
       
@@ -65,8 +62,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const register = async (username: string, email: string, password: string): Promise<boolean> => {
     try {
       // Check if user already exists
-      const response = await axios.get(API_URL);
-      const users = response.data;
+      const users = await userApi.getAllUsers();
       
       const userExists = users.some((u: any) => u.username === username);
       
@@ -83,11 +79,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         createdAt: new Date().toISOString()
       };
       
-      const createUserResponse = await axios.post(API_URL, newUser);
+      const createUserResponse = await userApi.createUser(newUser);
       const userData = {
-        id: createUserResponse.data.id,
-        username: createUserResponse.data.username,
-        email: createUserResponse.data.email || email,
+        id: createUserResponse.id,
+        username: createUserResponse.username,
+        email: createUserResponse.email || email,
       };
       
       setUser(userData);

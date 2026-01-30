@@ -6,6 +6,7 @@ interface TransactionFormData {
   amount: string;
   description: string;
   date: string;
+  currency: string;
 }
 
 interface TransactionFormProps {
@@ -19,14 +20,15 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
     amount: '',
     description: '',
     date: new Date().toISOString().split('T')[0],
+    currency: 'VND',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -39,6 +41,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
       amount: '',
       description: '',
       date: new Date().toISOString().split('T')[0],
+      currency: 'VND',
     });
   };
 
@@ -89,7 +92,30 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
               placeholder="0.00"
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span className="text-gray-500 sm:text-sm">USD</span>
+              <span className="text-gray-500 sm:text-sm">{formData.currency}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <label htmlFor="currency" className="block text-sm font-medium text-gray-700 mb-1">
+            {t('currency')}
+          </label>
+          <div className="relative">
+            <select
+              id="currency"
+              name="currency"
+              value={formData.currency}
+              onChange={handleChange}
+              className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-3 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300"
+            >
+              <option value="VND">{t('vnd')}</option>
+              <option value="USD">{t('usd')}</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
             </div>
           </div>
         </div>

@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import TransactionForm from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
-import axios from 'axios';
-
-const API_URL = 'https://64de102a825d19d9bfb1f7ba.mockapi.io/users';
+import { transactionApi } from '../services/api';
 
 const Transactions: React.FC = () => {
   const { user, logout } = useAuth();
@@ -46,19 +44,22 @@ const Transactions: React.FC = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        // Since our mock API doesn't have a transactions endpoint, we'll use mock data
-        // In a real application, we would fetch user's transactions from the API
-        setTransactions([
-          { id: '1', type: 'income' as const, amount: 2500, description: 'Salary', date: '2023-05-15' },
-          { id: '2', type: 'expense' as const, amount: 50, description: 'Groceries', date: '2023-05-16' },
-          { id: '3', type: 'expense' as const, amount: 120, description: 'Gas', date: '2023-05-17' },
-          { id: '4', type: 'income' as const, amount: 300, description: 'Freelance work', date: '2023-05-18' },
-          { id: '5', type: 'expense' as const, amount: 80, description: 'Dinner', date: '2023-05-19' },
-          { id: '6', type: 'expense' as const, amount: 25, description: 'Coffee', date: '2023-05-20' },
-          { id: '7', type: 'income' as const, amount: 150, description: 'Gift', date: '2023-05-21' },
-        ]);
+        if (user) {
+          const userTransactions = await transactionApi.getTransactionsByUserId(user.id);
+          setTransactions(userTransactions);
+        }
       } catch (error) {
         console.error('Error fetching transactions:', error);
+        // Fallback to mock data if API fails
+        setTransactions([
+          { id: '1', type: 'income' as const, amount: 2500000, description: 'Lương', date: '2023-05-15', currency: 'VND' },
+          { id: '2', type: 'expense' as const, amount: 150000, description: 'Tiền ăn', date: '2023-05-16', currency: 'VND' },
+          { id: '3', type: 'expense' as const, amount: 400000, description: 'Xăng xe', date: '2023-05-17', currency: 'VND' },
+          { id: '4', type: 'income' as const, amount: 1000000, description: 'Làm thêm', date: '2023-05-18', currency: 'VND' },
+          { id: '5', type: 'expense' as const, amount: 300000, description: 'Ăn tối', date: '2023-05-19', currency: 'VND' },
+          { id: '6', type: 'expense' as const, amount: 50000, description: 'Cà phê', date: '2023-05-20', currency: 'VND' },
+          { id: '7', type: 'income' as const, amount: 500000, description: 'Quà tặng', date: '2023-05-21', currency: 'VND' },
+        ]);
       }
     };
 
@@ -67,18 +68,51 @@ const Transactions: React.FC = () => {
     }
   }, [user]);
 
-  const handleAddTransaction = (transaction: any) => {
-    const newTransaction = {
-      ...transaction,
-      id: Date.now().toString() // Using timestamp for unique ID
-    };
-    setTransactions([newTransaction, ...transactions]);
-    setShowForm(false);
+  const handleAddTransaction = async (transaction: any) => {
+    try {
+      if (user) {
+        const transactionData = {
+          ...transaction,
+          userId: user.id, // Associate transaction with user
+          amount: parseFloat(transaction.amount),
+          createdAt: new Date().toISOString()
+        };
+        
+        const createdTransaction = await transactionApi.createTransaction(transactionData);
+        setTransactions([createdTransaction, ...transactions]);
+      } else {
+        // Fallback to local state if no user is logged in
+        const newTransaction = {
+          ...transaction,
+          id: Date.now().toString(),
+          amount: parseFloat(transaction.amount),
+        };
+        setTransactions([newTransaction, ...transactions]);
+      }
+      setShowForm(false);
+    } catch (error) {
+      console.error('Error adding transaction:', error);
+      // Fallback to local state in case of API failure
+      const newTransaction = {
+        ...transaction,
+        id: Date.now().toString(),
+        amount: parseFloat(transaction.amount),
+      };
+      setTransactions([newTransaction, ...transactions]);
+      setShowForm(false);
+    }
   };
 
-  const handleDeleteTransaction = (id: string) => {
+  const handleDeleteTransaction = async (id: string) => {
     if (window.confirm(t.deleteConfirmation)) {
-      setTransactions(transactions.filter(transaction => transaction.id !== id));
+      try {
+        await transactionApi.deleteTransaction(id);
+        setTransactions(transactions.filter(transaction => transaction.id !== id));
+      } catch (error) {
+        console.error('Error deleting transaction:', error);
+        // Fallback to local state in case of API failure
+        setTransactions(transactions.filter(transaction => transaction.id !== id));
+      }
     }
   };
 

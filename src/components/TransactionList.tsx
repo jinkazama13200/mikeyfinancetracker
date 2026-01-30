@@ -7,6 +7,7 @@ interface Transaction {
   amount: number;
   description: string;
   date: string;
+  currency?: string;
 }
 
 interface TransactionListProps {
@@ -93,7 +94,8 @@ const TransactionList: React.FC<TransactionListProps> = ({
                         : 'text-red-600 font-semibold'
                     }
                   >
-                    {transaction.type === 'income' ? '+' : '-'}${transaction.amount.toFixed(2)}
+                    {transaction.type === 'income' ? '+' : '-'}
+                    {transaction.amount.toLocaleString()} {transaction.currency || 'VND'}
                   </span>
                 </td>
                 {onDeleteTransaction && (

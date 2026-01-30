@@ -48,6 +48,11 @@ const resources: Translations = {
     food: "Food",
     other: "Other",
     
+    // Currency
+    currency: "Currency",
+    vnd: "Vietnamese Dong (VND)",
+    usd: "US Dollar (USD)",
+    
     // Buttons
     save: "Save",
     update: "Update",
@@ -92,6 +97,11 @@ const resources: Translations = {
     // Categories
     food: "Đồ ăn",
     other: "Khác",
+    
+    // Currency
+    currency: "Tiền tệ",
+    vnd: "Đồng Việt Nam (VND)",
+    usd: "Đô la Mỹ (USD)",
     
     // Buttons
     save: "Lưu",

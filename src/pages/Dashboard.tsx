@@ -3,9 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import TransactionList from '../components/TransactionList';
 import SummaryCard from '../components/SummaryCard';
-import axios from 'axios';
-
-const API_URL = 'https://64de102a825d19d9bfb1f7ba.mockapi.io/users';
+import { transactionApi } from '../services/api';
 
 const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -21,19 +19,22 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        // Since our mock API doesn't have a transactions endpoint, we'll use mock data
-        // In a real application, we would fetch user's transactions from the API
+        if (user) {
+          const userTransactions = await transactionApi.getTransactionsByUserId(user.id);
+          setTransactions(userTransactions);
+        }
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
+        // Fallback to mock data if API fails
         const mockTransactions = [
-          { id: '1', type: 'income' as const, amount: 2500, description: 'Salary', date: '2023-05-15' },
-          { id: '2', type: 'expense' as const, amount: 50, description: 'Groceries', date: '2023-05-16' },
-          { id: '3', type: 'expense' as const, amount: 120, description: 'Gas', date: '2023-05-17' },
-          { id: '4', type: 'income' as const, amount: 300, description: 'Freelance work', date: '2023-05-18' },
-          { id: '5', type: 'expense' as const, amount: 80, description: 'Dinner', date: '2023-05-19' },
+          { id: '1', type: 'income' as const, amount: 2500000, description: 'Lương', date: '2023-05-15', currency: 'VND' },
+          { id: '2', type: 'expense' as const, amount: 150000, description: 'Tiền ăn', date: '2023-05-16', currency: 'VND' },
+          { id: '3', type: 'expense' as const, amount: 400000, description: 'Xăng xe', date: '2023-05-17', currency: 'VND' },
+          { id: '4', type: 'income' as const, amount: 1000000, description: 'Làm thêm', date: '2023-05-18', currency: 'VND' },
+          { id: '5', type: 'expense' as const, amount: 300000, description: 'Ăn tối', date: '2023-05-19', currency: 'VND' },
         ];
         
         setTransactions(mockTransactions);
-      } catch (error) {
-        console.error('Error fetching transactions:', error);
       }
     };
 
