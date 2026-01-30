@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from '../i18n';
 
 interface TransactionFormData {
   type: 'income' | 'expense';
@@ -13,6 +14,7 @@ interface TransactionFormProps {
 }
 
 const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<TransactionFormData>({
     type: 'expense',
     amount: '',
@@ -48,7 +50,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
-            Transaction Type
+            {t('transactionType')}
           </label>
           <div className="relative">
             <select
@@ -58,8 +60,8 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
               onChange={handleChange}
               className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-3 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300"
             >
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
+              <option value="income">{t('incomeLabel')}</option>
+              <option value="expense">{t('expenseLabel')}</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -71,7 +73,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
         
         <div>
           <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
-            Amount
+            {t('amount')}
           </label>
           <div className="relative rounded-md shadow-sm">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -97,7 +99,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
         
         <div>
           <label htmlFor="currency" className="block text-sm font-medium text-gray-700 mb-1">
-            Currency
+            {t('currency')}
           </label>
           <div className="relative">
             <select
@@ -107,8 +109,8 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
               onChange={handleChange}
               className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-3 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300"
             >
-              <option value="VND">VND</option>
-              <option value="USD">USD</option>
+              <option value="VND">{t('vnd')}</option>
+              <option value="USD">{t('usd')}</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -120,7 +122,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
         
         <div>
           <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">
-            Date
+            {t('date')}
           </label>
           <input
             type="date"
@@ -135,7 +137,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
         
         <div>
           <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-            Description
+            {t('description')}
           </label>
           <input
             type="text"
@@ -145,7 +147,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             onChange={handleChange}
             required
             className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 sm:text-sm"
-            placeholder="Enter description"
+            placeholder={t('description')}
           />
         </div>
       </div>
@@ -158,7 +160,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
           <svg xmlns="http://www.w3.org/2000/svg" className="-ml-1 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
           </svg>
-          Add Transaction
+          {t('addTransaction')}
         </button>
       </div>
     </form>

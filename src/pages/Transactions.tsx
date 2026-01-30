@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import TransactionForm from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
@@ -6,6 +7,7 @@ import { transactionApi } from '../services/api';
 
 const Transactions: React.FC = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [transactions, setTransactions] = useState<any[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [language, setLanguage] = useState<'en' | 'vi'>('en');
@@ -78,6 +80,7 @@ const Transactions: React.FC = () => {
 
   const handleLogout = () => {
     logout();
+    navigate('/login');
   };
 
   return (
@@ -92,7 +95,7 @@ const Transactions: React.FC = () => {
                     <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="ml-2 text-xl font-bold text-gray-900 cursor-pointer hover:text-indigo-700" onClick={() => window.location.href='/'}>Personal Finance Tracker</span>
+                <span className="ml-2 text-xl font-bold text-gray-900 cursor-pointer hover:text-indigo-700" onClick={() => window.location.href='/dashboard'}>Personal Finance Tracker</span>
               </div>
             </div>
             <div className="flex items-center">

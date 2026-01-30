@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from '../i18n';
 
 interface Transaction {
   id: string;
@@ -18,6 +19,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
   transactions, 
   onDeleteTransaction 
 }) => {
+  const { t } = useTranslation();
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -32,32 +34,32 @@ const TransactionList: React.FC<TransactionListProps> = ({
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Description
+              {t('description')}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Date
+              {t('date')}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Type
+              {t('transactionType')}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Amount
+              {t('amount')}
             </th>
             {onDeleteTransaction && (
               <th
                 scope="col"
                 className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Actions
+                {t('actions')}
               </th>
             )}
           </tr>
@@ -80,7 +82,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                         : 'bg-red-100 text-red-800'
                     }`}
                   >
-                    {transaction.type === 'income' ? 'Income' : 'Expense'}
+                    {t(transaction.type)}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium">
@@ -104,7 +106,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
                       </svg>
-                      Delete
+                      {t('delete')}
                     </button>
                   </td>
                 )}
@@ -117,9 +119,9 @@ const TransactionList: React.FC<TransactionListProps> = ({
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                   </svg>
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">No transactions found</h3>
+                  <h3 className="mt-2 text-sm font-medium text-gray-900">{t('noData')}</h3>
                   <p className="mt-1 text-sm text-gray-500">
-                    {onDeleteTransaction ? 'Try adding some new transactions' : 'No transactions to display'}
+                    {onDeleteTransaction ? t('tryAgain') : t('noData')}
                   </p>
                 </div>
               </td>

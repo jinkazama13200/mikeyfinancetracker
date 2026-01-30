@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from '../i18n';
 
 interface SummaryCardProps {
   title: string;
@@ -7,6 +8,7 @@ interface SummaryCardProps {
 }
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
+  const { t } = useTranslation();
   let bgColor = '';
   let textColor = '';
 
@@ -28,6 +30,20 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
       textColor = 'text-gray-800';
   }
 
+  // Map title to translation key
+  const getTitleTranslation = () => {
+    switch(title.toLowerCase()) {
+      case 'balance':
+        return t('balance');
+      case 'income':
+        return t('income');
+      case 'expenses':
+        return t('totalExpenses');
+      default:
+        return t(title.toLowerCase());
+    }
+  };
+
   return (
     <div className={`${bgColor} rounded-xl p-6 shadow-lg transform transition duration-500 hover:scale-[1.02] border border-gray-100`}>
       <div className="flex items-start">
@@ -47,7 +63,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
           )}
         </div>
         <div className="ml-4">
-          <p className="text-sm font-medium text-gray-600">{title}</p>
+          <p className="text-sm font-medium text-gray-600">{getTitleTranslation()}</p>
           <p className={`mt-1 text-3xl font-bold ${textColor}`}>
             {type === 'balance' && value < 0 ? '-' : ''}
             ${Math.abs(value).toFixed(2)}
