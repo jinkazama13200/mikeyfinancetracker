@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import axios from 'axios';
 
 interface User {
   id: string;
@@ -13,49 +14,67 @@ interface AuthContextType {
   logout: () => void;
 }
 
+const API_URL = 'https://64de102a825d19d9bfb1f7ba.mockapi.io/users';
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const login = async (username: string, password: string): Promise<boolean> => {
-    // In a real application, you would call your API here
-    // For now, we'll simulate a successful login
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
+      const response = await axios.get(API_URL);
+      const users = response.data;
       
-      const mockUser: User = {
-        id: '1',
-        username: username,
-        email: username.includes('@') ? username : `${username}@example.com`,
-      };
+      const foundUser = users.find((u: any) => u.username === username && u.password === password);
       
-      setUser(mockUser);
-      return true;
+      if (foundUser) {
+        setUser({
+          id: foundUser.id,
+          username: foundUser.username,
+          email: foundUser.email || `${foundUser.username}@example.com`,
+        });
+        return true;
+      } else {
+        console.error('Invalid credentials');
+        return false;
+      }
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('Login error:', error);
       return false;
     }
   };
 
   const register = async (username: string, email: string, password: string): Promise<boolean> => {
-    // In a real application, you would call your API here
-    // For now, we'll simulate a successful registration
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Check if user already exists
+      const response = await axios.get(API_URL);
+      const users = response.data;
       
-      const mockUser: User = {
-        id: '1',
-        username: username,
-        email: email,
+      const userExists = users.some((u: any) => u.username === username);
+      
+      if (userExists) {
+        console.error('Username already exists');
+        return false;
+      }
+      
+      // Create new user
+      const newUser = {
+        username,
+        email,
+        password,
+        createdAt: new Date().toISOString()
       };
       
-      setUser(mockUser);
+      const createUserResponse = await axios.post(API_URL, newUser);
+      setUser({
+        id: createUserResponse.data.id,
+        username: createUserResponse.data.username,
+        email: createUserResponse.data.email || email,
+      });
       return true;
     } catch (error) {
-      console.error('Registration failed:', error);
+      console.error('Registration error:', error);
       return false;
     }
   };

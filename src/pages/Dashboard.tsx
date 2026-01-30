@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import TransactionList from '../components/TransactionList';
 import SummaryCard from '../components/SummaryCard';
+import axios from 'axios';
+
+const API_URL = 'https://64de102a825d19d9bfb1f7ba.mockapi.io/users';
 
 const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -11,13 +14,32 @@ const Dashboard: React.FC = () => {
   const [expenses, setExpenses] = useState<number>(0);
 
   // Mock data for demonstration
-  const [transactions, setTransactions] = useState([
-    { id: '1', type: 'income' as const, amount: 2500, description: 'Salary', date: '2023-05-15' },
-    { id: '2', type: 'expense' as const, amount: 50, description: 'Groceries', date: '2023-05-16' },
-    { id: '3', type: 'expense' as const, amount: 120, description: 'Gas', date: '2023-05-17' },
-    { id: '4', type: 'income' as const, amount: 300, description: 'Freelance work', date: '2023-05-18' },
-    { id: '5', type: 'expense' as const, amount: 80, description: 'Dinner', date: '2023-05-19' },
-  ]);
+  const [transactions, setTransactions] = useState<any[]>([]);
+
+  // Load transactions for the user
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        // Since our mock API doesn't have a transactions endpoint, we'll use mock data
+        // In a real application, we would fetch user's transactions from the API
+        const mockTransactions = [
+          { id: '1', type: 'income' as const, amount: 2500, description: 'Salary', date: '2023-05-15' },
+          { id: '2', type: 'expense' as const, amount: 50, description: 'Groceries', date: '2023-05-16' },
+          { id: '3', type: 'expense' as const, amount: 120, description: 'Gas', date: '2023-05-17' },
+          { id: '4', type: 'income' as const, amount: 300, description: 'Freelance work', date: '2023-05-18' },
+          { id: '5', type: 'expense' as const, amount: 80, description: 'Dinner', date: '2023-05-19' },
+        ];
+        
+        setTransactions(mockTransactions);
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
+      }
+    };
+
+    if (user) {
+      fetchTransactions();
+    }
+  }, [user]);
 
   useEffect(() => {
     // Calculate summary values
