@@ -27,7 +27,7 @@ function App() {
     <I18nProvider key={key}>
       <AuthProvider>
         <Router>
-          <div className="App">
+          <div className="App min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" />} />
               <Route path="/login" element={<Login />} />

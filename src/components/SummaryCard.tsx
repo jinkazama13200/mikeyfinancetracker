@@ -11,22 +11,26 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
   const { language } = useTranslation();
   let bgColor = '';
   let textColor = '';
+  let icon = '';
 
   switch (type) {
     case 'income':
-      bgColor = 'bg-green-50';
+      bgColor = 'bg-gradient-to-br from-green-50 to-emerald-50';
       textColor = 'text-green-800';
+      icon = '↑';
       break;
     case 'expense':
-      bgColor = 'bg-red-50';
+      bgColor = 'bg-gradient-to-br from-red-50 to-rose-50';
       textColor = 'text-red-800';
+      icon = '↓';
       break;
     case 'balance':
-      bgColor = value >= 0 ? 'bg-blue-50' : 'bg-yellow-50';
-      textColor = value >= 0 ? 'text-blue-800' : 'text-yellow-800';
+      bgColor = value >= 0 ? 'bg-gradient-to-br from-blue-50 to-indigo-50' : 'bg-gradient-to-br from-amber-50 to-yellow-50';
+      textColor = value >= 0 ? 'text-blue-800' : 'text-amber-800';
+      icon = value >= 0 ? '💰' : '💸';
       break;
     default:
-      bgColor = 'bg-gray-50';
+      bgColor = 'bg-gradient-to-br from-gray-50 to-slate-50';
       textColor = 'text-gray-800';
   }
 
@@ -45,9 +49,12 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
   };
 
   return (
-    <div className={`${bgColor} rounded-lg p-6 shadow`}>
-      <p className="text-sm font-medium text-gray-600">{getTitle()}</p>
-      <p className={`mt-2 text-3xl font-semibold ${textColor}`}>
+    <div className={`${bgColor} rounded-xl p-6 shadow-lg card-hover border border-gray-100 transition-all duration-300`}>
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-medium text-gray-600">{getTitle()}</p>
+        <span className="text-xl">{icon}</span>
+      </div>
+      <p className={`mt-2 text-3xl font-bold ${textColor} transition-all duration-500`}>
         {type === 'income' || type === 'expense' ? (type === 'income' ? '+' : '-') : ''}
         {Math.abs(value).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {language === 'vi' ? 'VND' : '$'}
       </p>
