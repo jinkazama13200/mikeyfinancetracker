@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../i18n';
-import TransactionForm from '../components/TransactionForm';
+import TransactionForm, { TransactionFormData } from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
 import { transactionApi, Transaction } from '../services/api';
 
@@ -33,13 +33,13 @@ const Transactions: React.FC = () => {
     }
   }, [user]);
 
-  const handleAddTransaction = async (transaction: Omit<Transaction, 'id'>) => {
+  const handleAddTransaction = async (transaction: TransactionFormData) => {
     try {
       if (user) {
         const transactionData = {
           ...transaction,
           userId: user.id, // Associate transaction with user
-          amount: parseFloat(transaction.amount.toString()),
+          amount: parseFloat(transaction.amount),
           createdAt: new Date().toISOString()
         };
         
@@ -50,7 +50,9 @@ const Transactions: React.FC = () => {
         const newTransaction = {
           ...transaction,
           id: Date.now().toString(),
-          amount: parseFloat(transaction.amount.toString()),
+          amount: parseFloat(transaction.amount),
+          userId: 'unknown',
+          createdAt: new Date().toISOString()
         };
         setTransactions([newTransaction, ...transactions]);
       }
@@ -61,7 +63,9 @@ const Transactions: React.FC = () => {
       const newTransaction = {
         ...transaction,
         id: Date.now().toString(),
-        amount: parseFloat(transaction.amount.toString()),
+        amount: parseFloat(transaction.amount),
+        userId: user?.id || 'unknown',
+        createdAt: new Date().toISOString()
       };
       setTransactions([newTransaction, ...transactions]);
       setShowForm(false);

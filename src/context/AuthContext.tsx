@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { userApi, User as UserType } from '../services/api';
+import { userApi } from '../services/api';
 
 interface User {
   id: string;

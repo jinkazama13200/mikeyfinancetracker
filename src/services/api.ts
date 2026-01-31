@@ -40,7 +40,7 @@ export const transactionApi = {
   // Lấy tất cả giao dịch
   getAllTransactions: async (): Promise<Transaction[]> => {
     try {
-      const response = await apiClient.get('/transactions');
+      const response = await apiClient.get<Transaction[]>('/transactions');
       return response.data;
     } catch (error) {
       console.error('Error fetching transactions:', error);
@@ -51,7 +51,7 @@ export const transactionApi = {
   // Lấy giao dịch theo ID
   getTransactionById: async (id: string): Promise<Transaction> => {
     try {
-      const response = await apiClient.get(`/transactions/${id}`);
+      const response = await apiClient.get<Transaction>(`/transactions/${id}`);
       return response.data;
     } catch (error) {
       console.error(`Error fetching transaction with id ${id}:`, error);
@@ -62,7 +62,7 @@ export const transactionApi = {
   // Lấy giao dịch theo userId
   getTransactionsByUserId: async (userId: string): Promise<Transaction[]> => {
     try {
-      const response = await apiClient.get(`/transactions`, {
+      const response = await apiClient.get<Transaction[]>(`/transactions`, {
         params: {
           userId: userId
         }
@@ -77,7 +77,7 @@ export const transactionApi = {
   // Tạo giao dịch mới
   createTransaction: async (transaction: Omit<Transaction, 'id'>): Promise<Transaction> => {
     try {
-      const response = await apiClient.post('/transactions', transaction);
+      const response = await apiClient.post<Transaction>('/transactions', transaction);
       return response.data;
     } catch (error) {
       console.error('Error creating transaction:', error);
@@ -88,7 +88,7 @@ export const transactionApi = {
   // Cập nhật giao dịch
   updateTransaction: async (id: string, transaction: Partial<Transaction>): Promise<Transaction> => {
     try {
-      const response = await apiClient.put(`/transactions/${id}`, transaction);
+      const response = await apiClient.put<Transaction>(`/transactions/${id}`, transaction);
       return response.data;
     } catch (error) {
       console.error(`Error updating transaction with id ${id}:`, error);
@@ -112,7 +112,7 @@ export const userApi = {
   // Lấy tất cả người dùng
   getAllUsers: async (): Promise<User[]> => {
     try {
-      const response = await apiClient.get('/users');
+      const response = await apiClient.get<User[]>('/users');
       return response.data;
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -123,7 +123,7 @@ export const userApi = {
   // Lấy người dùng theo ID
   getUserById: async (id: string): Promise<User> => {
     try {
-      const response = await apiClient.get(`/users/${id}`);
+      const response = await apiClient.get<User>(`/users/${id}`);
       return response.data;
     } catch (error) {
       console.error(`Error fetching user with id ${id}:`, error);
@@ -134,7 +134,7 @@ export const userApi = {
   // Tạo người dùng mới
   createUser: async (user: Omit<User, 'id'>): Promise<User> => {
     try {
-      const response = await apiClient.post('/users', user);
+      const response = await apiClient.post<User>('/users', user);
       return response.data;
     } catch (error) {
       console.error('Error creating user:', error);
@@ -145,7 +145,7 @@ export const userApi = {
   // Cập nhật người dùng
   updateUser: async (id: string, user: Partial<User>): Promise<User> => {
     try {
-      const response = await apiClient.put(`/users/${id}`, user);
+      const response = await apiClient.put<User>(`/users/${id}`, user);
       return response.data;
     } catch (error) {
       console.error(`Error updating user with id ${id}:`, error);

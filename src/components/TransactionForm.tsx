@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from '../i18n';
 
-interface TransactionFormData {
+export interface TransactionFormData {
   type: 'income' | 'expense';
   amount: string;
   description: string;
