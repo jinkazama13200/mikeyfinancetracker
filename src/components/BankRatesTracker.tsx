@@ -128,9 +128,9 @@ const BankRatesTracker: React.FC = () => {
   };
 
   return (
-    <div className="bg-transparent rounded-2xl shadow-lg border border-gray-200/50 overflow-hidden relative">
-      <div className="absolute inset-0 glass-effect z-0 rounded-2xl"></div>
-      <div className="px-6 py-4 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 border-b border-gray-200/30 relative z-10">
+    <div className="bg-white/30 backdrop-blur-sm rounded-2xl shadow-sm border border-white/50 overflow-hidden relative">
+      <div className="absolute inset-0 glass-effect z-0 rounded-2xl opacity-60"></div>
+      <div className="px-6 py-4 bg-gradient-to-r from-indigo-50/30 to-purple-50/30 border-b border-white/30 relative z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

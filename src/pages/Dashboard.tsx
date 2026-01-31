@@ -85,8 +85,8 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-      <nav className="bg-transparent sticky top-0 z-10 shadow-sm border-b border-gray-200/50 relative overflow-hidden">
-        <div className="absolute inset-0 glass-effect z-0"></div>
+      <nav className="bg-white/30 backdrop-blur-sm sticky top-0 z-10 shadow-sm border-b border-white/50 relative overflow-hidden">
+        <div className="absolute inset-0 glass-effect z-0 opacity-50"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center">
@@ -106,8 +106,8 @@ const Dashboard: React.FC = () => {
                   type="button"
                   className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-300 ${
                     language === 'en'
-                      ? 'bg-indigo-100 text-indigo-700 shadow-inner'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-indigo-100/70 text-indigo-700 shadow-inner'
+                      : 'bg-gray-100/70 text-gray-700 hover:bg-gray-200/70'
                   }`}
                   onClick={() => setLanguage('en')}
                 >
@@ -117,8 +117,8 @@ const Dashboard: React.FC = () => {
                   type="button"
                   className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-300 ${
                     language === 'vi'
-                      ? 'bg-indigo-100 text-indigo-700 shadow-inner'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-indigo-100/70 text-indigo-700 shadow-inner'
+                      : 'bg-gray-100/70 text-gray-700 hover:bg-gray-200/70'
                   }`}
                   onClick={() => setLanguage('vi')}
                 >
@@ -131,7 +131,7 @@ const Dashboard: React.FC = () => {
                   <span className="text-xs sm:text-sm font-medium text-gray-700">{language === 'en' ? 'Welcome,' : 'Chào mừng,'}</span>
                   <span className="text-xs sm:text-sm text-indigo-600 font-medium truncate max-w-[120px]">{user?.username}</span>
                 </div>
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 flex items-center justify-center border-2 border-indigo-200">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gradient-to-r from-indigo-100/70 to-purple-100/70 flex items-center justify-center border-2 border-indigo-200/70">
                   <span className="text-indigo-600 font-bold text-sm">{user?.username?.charAt(0)?.toUpperCase()}</span>
                 </div>
               </div>
