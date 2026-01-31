@@ -10,7 +10,7 @@ interface Transaction {
   date: string;
   currency?: string;
   userId: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 interface ExpenseCategory {

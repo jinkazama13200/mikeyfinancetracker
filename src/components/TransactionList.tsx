@@ -8,6 +8,8 @@ interface Transaction {
   description: string;
   date: string;
   currency?: string;
+  userId: string;
+  createdAt?: string;
 }
 
 interface TransactionListProps {
