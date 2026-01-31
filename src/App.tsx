@@ -6,7 +6,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
-import TestApi from './test-api';
 import './App.css';
 
 function App() {
@@ -35,7 +34,6 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/transactions" element={<Transactions />} />
-              <Route path="/test-api" element={<TestApi />} />
             </Routes>
           </div>
         </Router>
