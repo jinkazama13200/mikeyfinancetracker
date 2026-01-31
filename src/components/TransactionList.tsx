@@ -55,32 +55,32 @@ const TransactionList: React.FC<TransactionListProps> = ({
           <tr>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
               {language === 'en' ? 'Description' : 'Mô tả'}
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
               {language === 'en' ? 'Date' : 'Ngày'}
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
               {language === 'en' ? 'Type' : 'Loại'}
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
               {language === 'en' ? 'Amount' : 'Số tiền'}
             </th>
             {(onDeleteTransaction || onUpdateTransaction) && (
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 {language === 'en' ? 'Actions' : 'Hành động'}
               </th>
@@ -93,41 +93,41 @@ const TransactionList: React.FC<TransactionListProps> = ({
               <tr key={transaction.id} className={transaction.type === 'income' ? 'bg-green-50' : 'bg-red-50'}>
                 {editingId === transaction.id ? (
                   <>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap text-center">
                       <input
                         type="text"
                         value={editForm.description || ''}
                         onChange={(e) => setEditForm({...editForm, description: e.target.value})}
-                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm"
+                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm text-center"
                       />
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap text-center">
                       <input
                         type="date"
                         value={editForm.date || ''}
                         onChange={(e) => setEditForm({...editForm, date: e.target.value})}
-                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm"
+                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm text-center"
                       />
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap text-center">
                       <select
                         value={editForm.type || ''}
                         onChange={(e) => setEditForm({...editForm, type: e.target.value as 'income' | 'expense'})}
-                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm"
+                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm text-center"
                       >
                         <option value="income">{language === 'en' ? 'Income' : 'Thu nhập'}</option>
                         <option value="expense">{language === 'en' ? 'Expense' : 'Chi tiêu'}</option>
                       </select>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                    <td className="px-6 py-4 whitespace-nowrap text-center">
                       <input
                         type="number"
                         value={editForm.amount || ''}
                         onChange={(e) => setEditForm({...editForm, amount: Number(e.target.value)})}
-                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm text-right"
+                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm text-center"
                       />
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
                       <button
                         onClick={() => handleSave(transaction.id)}
                         className="text-green-600 hover:text-green-900"
@@ -144,13 +144,13 @@ const TransactionList: React.FC<TransactionListProps> = ({
                   </>
                 ) : (
                   <>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">
                       {transaction.description}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                       {formatDate(transaction.date)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                       <span
                         className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                           transaction.type === 'income'
@@ -163,7 +163,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                           (language === 'en' ? 'Expense' : 'Chi tiêu')}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium">
+                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                       <span
                         className={
                           transaction.type === 'income'
@@ -175,7 +175,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                       </span>
                     </td>
                     {(onDeleteTransaction || onUpdateTransaction) && (
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                      <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
                         {onUpdateTransaction && (
                           <button
                             onClick={() => handleEdit(transaction)}
