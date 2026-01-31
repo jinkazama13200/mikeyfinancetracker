@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../i18n';
 import TransactionForm from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
+import MockApiSetupGuide from '../components/MockApiSetupGuide';
 import { transactionApi } from '../services/api';
 
 const Transactions: React.FC = () => {
@@ -183,23 +184,39 @@ const Transactions: React.FC = () => {
           </div>
         )}
 
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100 shadow-gray-200/30">
-          <div className="px-7 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-gray-100">
-            <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-              </svg>
-              {language === 'en' ? 'All Transactions' : 'Tất cả giao dịch'}
-            </h2>
+        {transactions.length === 0 ? (
+          <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100 shadow-gray-200/30">
+            <div className="px-7 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-gray-100">
+              <h2 className="text-xl font-semibold text-gray-900 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+                {language === 'en' ? 'Setup Instructions' : 'Hướng dẫn thiết lập'}
+              </h2>
+            </div>
+            <div className="p-7">
+              <MockApiSetupGuide />
+            </div>
           </div>
-          <div className="p-7">
-            <TransactionList 
-              transactions={transactions} 
-              onDeleteTransaction={handleDeleteTransaction}
-              onUpdateTransaction={handleUpdateTransaction}
-            />
+        ) : (
+          <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100 shadow-gray-200/30">
+            <div className="px-7 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-gray-100">
+              <h2 className="text-xl font-semibold text-gray-900 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+                {language === 'en' ? 'All Transactions' : 'Tất cả giao dịch'}
+              </h2>
+            </div>
+            <div className="p-7">
+              <TransactionList 
+                transactions={transactions} 
+                onDeleteTransaction={handleDeleteTransaction}
+                onUpdateTransaction={handleUpdateTransaction}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </main>
     </div>
   );

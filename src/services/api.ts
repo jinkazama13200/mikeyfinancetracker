@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// MockAPI endpoint - bạn sẽ cần tạo một API trên MockAPI.io
-const MOCK_API_BASE_URL = 'https://6717e421ba5a449e185386b9.mockapi.io/api/v1';
+// MockAPI endpoint - sử dụng endpoint của bạn
+const MOCK_API_BASE_URL = 'https://64de102a825d19d9bfb1f7ba.mockapi.io';
 
 // Tạo axios instance với cấu hình mặc định
 const apiClient = axios.create({
