@@ -98,14 +98,64 @@
   }
 }
 
-/* Glass Effect */
+/* Light Theme Colors */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-card: rgba(233, 196, 106, 0.3); /* e9c46a/30 */
+  --bg-card-lighter: rgba(233, 196, 106, 0.4); /* e9c46a/40 */
+  --bg-card-lightest: rgba(233, 196, 106, 0.5); /* e9c46a/50 */
+  --text-primary: #264653;
+  --text-secondary: #5a6268;
+  --text-muted: #868e96;
+  --border-color: rgba(233, 196, 106, 0.6); /* e9c46a/60 */
+  --border-light: rgba(233, 196, 106, 0.4); /* e9c46a/40 */
+  --glass-bg: rgba(233, 196, 106, 0.4); /* e9c46a - vàng nhạt */
+  --glass-border: rgba(233, 196, 106, 0.4);
+  --income-color: #2a9d8f; /* xanh ngọc */
+  --expense-color: #e76f51; /* đỏ cam */
+  --savings-color: #f4a261; /* cam */
+  --total-color: #264653; /* xanh đậm gần đen */
+  --income-border: rgba(42, 157, 143, 0.6); /* 2a9d8f/60 */
+  --expense-border: rgba(231, 111, 81, 0.6); /* e76f51/60 */
+  --savings-border: rgba(244, 162, 97, 0.6); /* f4a261/60 */
+  --total-border: rgba(38, 70, 83, 0.6); /* 264653/60 */
+  --divider-color: rgba(231, 111, 81, 0.4); /* e76f51/40 */
+}
+
+/* Dark Theme Colors */
+.dark:root {
+  --bg-primary: #12181f;
+  --bg-secondary: #1a222c;
+  --bg-card: rgba(38, 70, 83, 0.3); /* 264653/30 */
+  --bg-card-lighter: rgba(38, 70, 83, 0.4); /* 264653/40 */
+  --bg-card-lightest: rgba(38, 70, 83, 0.5); /* 264653/50 */
+  --text-primary: #e9ecef;
+  --text-secondary: #adb5bd;
+  --text-muted: #6c757d;
+  --border-color: rgba(38, 70, 83, 0.6); /* 264653/60 */
+  --border-light: rgba(38, 70, 83, 0.4); /* 264653/40 */
+  --glass-bg: rgba(38, 70, 83, 0.4); /* 264653 - xanh đậm gần đen */
+  --glass-border: rgba(38, 70, 83, 0.4);
+  --income-color: #4fb0a1; /* sáng hơn 2a9d8f */
+  --expense-color: #ec8a72; /* sáng hơn e76f51 */
+  --savings-color: #f6b37d; /* sáng hơn f4a261 */
+  --total-color: #8ac1c7; /* sáng hơn 264653 */
+  --income-border: rgba(79, 176, 161, 0.6); /* 4fb0a1/60 */
+  --expense-border: rgba(236, 138, 114, 0.6); /* ec8a72/60 */
+  --savings-border: rgba(246, 179, 125, 0.6); /* f6b37d/60 */
+  --total-border: rgba(138, 193, 199, 0.6); /* 8ac1c7/60 */
+  --divider-color: rgba(236, 138, 114, 0.4); /* ec8a72/40 */
+}
+
+/* Glass Effect - updated to use CSS variables */
 .glass-effect {
-  background: rgba(233, 196, 106, 0.4); /* e9c46a - vàng nhạt */
+  background: var(--glass-bg);
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(233, 196, 106, 0.4);
+  border: 1px solid var(--glass-border);
   position: absolute;
   top: 0;
   left: 0;
@@ -115,50 +165,50 @@
   border-radius: inherit;
 }
 
-/* New Color Palette */
+/* Color Palette - updated to use CSS variables */
 .color-income {
-  color: #2a9d8f; /* xanh ngọc */
+  color: var(--income-color);
 }
 
 .color-expense {
-  color: #e76f51; /* đỏ cam */
+  color: var(--expense-color);
 }
 
 .color-savings {
-  color: #f4a261; /* cam */
+  color: var(--savings-color);
 }
 
 .color-total {
-  color: #264653; /* xanh đậm gần đen */
+  color: var(--total-color);
 }
 
 .bg-income {
-  background-color: #2a9d8f;
+  background-color: var(--income-color);
 }
 
 .bg-expense {
-  background-color: #e76f51;
+  background-color: var(--expense-color);
 }
 
 .bg-savings {
-  background-color: #f4a261;
+  background-color: var(--savings-color);
 }
 
 .bg-total {
-  background-color: #264653;
+  background-color: var(--total-color);
 }
 
 /* Chart colors */
 .chart-income {
-  background-color: #2a9d8f;
+  background-color: var(--income-color);
 }
 
 .chart-expense {
-  background-color: #e76f51;
+  background-color: var(--expense-color);
 }
 
 .chart-savings {
-  background-color: #f4a261;
+  background-color: var(--savings-color);
 }
 
 /* Button hover effects */
@@ -176,49 +226,74 @@
 
 /* Enhanced color combinations */
 .text-primary {
-  color: #264653; /* xanh đậm gần đen */
+  color: var(--text-primary);
 }
 
 .text-secondary {
-  color: #f4a261; /* cam */
+  color: var(--text-secondary);
 }
 
 .text-accent {
-  color: #2a9d8f; /* xanh ngọc */
+  color: var(--income-color);
 }
 
 .text-danger {
-  color: #e76f51; /* đỏ cam */
+  color: var(--expense-color);
 }
 
 .bg-light {
-  background-color: #e9c46a; /* vàng nhạt */
+  background-color: var(--bg-card-lighter);
 }
 
 .border-theme {
-  border-color: #e9c46a;
+  border-color: var(--border-color);
 }
 
 /* Gradient for backgrounds */
 .bg-gradient-theme {
-  background: linear-gradient(135deg, #e9c46a, #2a9d8f);
+  background: linear-gradient(135deg, var(--savings-color), var(--income-color));
 }
 
 .bg-gradient-income {
-  background: linear-gradient(135deg, #4fb0a1, #2a9d8f);
+  background: linear-gradient(135deg, #4fb0a1, var(--income-color));
 }
 
 .bg-gradient-expense {
-  background: linear-gradient(135deg, #ec8a72, #e76f51);
+  background: linear-gradient(135deg, #ec8a72, var(--expense-color));
 }
 
 .bg-gradient-savings {
-  background: linear-gradient(135deg, #f6b37d, #f4a261);
+  background: linear-gradient(135deg, #f6b37d, var(--savings-color));
 }
 
 /* Card background */
 .bg-card {
-  background: rgba(233, 196, 106, 0.3); /* e9c46a/30 */
+  background: var(--bg-card);
+}
+
+/* General theme-aware styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Card component */
+.card {
+  background-color: var(--bg-card-lighter);
+  border: 1px solid var(--border-color);
+}
+
+/* Input elements */
+input, select, textarea {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--income-color);
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.15);
 }
 
 /* Color Palette */
