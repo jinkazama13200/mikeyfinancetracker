@@ -5,6 +5,7 @@ import { useTranslation } from '../i18n';
 import TransactionList from '../components/TransactionList';
 import SummaryCard from '../components/SummaryCard';
 import ExpenseChart from '../components/ExpenseChart';
+import CurrencyTracker from '../components/CurrencyTracker';
 import { transactionApi, Transaction } from '../services/api';
 
 const Dashboard: React.FC = () => {
@@ -197,6 +198,10 @@ const Dashboard: React.FC = () => {
           <ExpenseChart 
             transactions={transactions}
           />
+        </div>
+
+        <div className="mb-6">
+          <CurrencyTracker />
         </div>
       </main>
     </div>
