@@ -49,15 +49,18 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
   };
 
   return (
-    <div className={`${bgColor} rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-lg card-hover border border-gray-100 transition-all duration-300`}>
-      <div className="flex items-center justify-between">
-        <p className="text-xs font-medium text-gray-600 truncate">{getTitle()}</p>
-        <span className="text-base sm:text-lg">{icon}</span>
+    <div className={`${bgColor} rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-lg card-hover border border-gray-100 transition-all duration-300 relative overflow-hidden`}>
+      <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent rounded-xl glass-effect"></div>
+      <div className="relative z-10">
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-medium text-gray-600 truncate">{getTitle()}</p>
+          <span className="text-base sm:text-lg">{icon}</span>
+        </div>
+        <p className={`mt-1 sm:mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold ${textColor} transition-all duration-500 break-words`}>
+          {type === 'income' ? '+' : type === 'expense' ? '-' : value < 0 ? '-' : ''}
+          {Math.abs(value).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {language === 'vi' ? 'VND' : '$'}
+        </p>
       </div>
-      <p className={`mt-1 sm:mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold ${textColor} transition-all duration-500 break-words`}>
-        {type === 'income' ? '+' : type === 'expense' ? '-' : value < 0 ? '-' : ''}
-        {Math.abs(value).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {language === 'vi' ? 'VND' : '$'}
-      </p>
     </div>
   );
 };
