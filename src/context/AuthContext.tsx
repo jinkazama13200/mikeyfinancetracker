@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { userApi } from '../services/api';
+import { userApi, User as UserType } from '../services/api';
 
 interface User {
   id: string;
@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const users = await userApi.getAllUsers();
       
-      const foundUser = users.find((u: any) => u.username === username && u.password === password);
+      const foundUser = users.find((u) => u.username === username && u.password === password);
       
       if (foundUser) {
         const userData = {
@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       // Check if user already exists
       const users = await userApi.getAllUsers();
       
-      const userExists = users.some((u: any) => u.username === username);
+      const userExists = users.some((u) => u.username === username);
       
       if (userExists) {
         console.error('Username already exists');

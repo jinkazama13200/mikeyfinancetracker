@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../i18n';
 import TransactionList from '../components/TransactionList';
 import SummaryCard from '../components/SummaryCard';
-import { transactionApi } from '../services/api';
+import { transactionApi, Transaction } from '../services/api';
 
 const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -13,7 +13,7 @@ const Dashboard: React.FC = () => {
   const [balance, setBalance] = useState<number>(0);
   const [income, setIncome] = useState<number>(0);
   const [expenses, setExpenses] = useState<number>(0);
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   // Load transactions for the user
   useEffect(() => {

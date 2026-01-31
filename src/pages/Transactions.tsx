@@ -4,14 +4,13 @@ import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../i18n';
 import TransactionForm from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
-import MockApiSetupGuide from '../components/MockApiSetupGuide';
-import { transactionApi } from '../services/api';
+import { transactionApi, Transaction } from '../services/api';
 
 const Transactions: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useTranslation();
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [showForm, setShowForm] = useState(false);
 
   // Load transactions for the user
@@ -34,13 +33,13 @@ const Transactions: React.FC = () => {
     }
   }, [user]);
 
-  const handleAddTransaction = async (transaction: any) => {
+  const handleAddTransaction = async (transaction: Omit<Transaction, 'id'>) => {
     try {
       if (user) {
         const transactionData = {
           ...transaction,
           userId: user.id, // Associate transaction with user
-          amount: parseFloat(transaction.amount),
+          amount: parseFloat(transaction.amount.toString()),
           createdAt: new Date().toISOString()
         };
         
@@ -51,7 +50,7 @@ const Transactions: React.FC = () => {
         const newTransaction = {
           ...transaction,
           id: Date.now().toString(),
-          amount: parseFloat(transaction.amount),
+          amount: parseFloat(transaction.amount.toString()),
         };
         setTransactions([newTransaction, ...transactions]);
       }
@@ -62,7 +61,7 @@ const Transactions: React.FC = () => {
       const newTransaction = {
         ...transaction,
         id: Date.now().toString(),
-        amount: parseFloat(transaction.amount),
+        amount: parseFloat(transaction.amount.toString()),
       };
       setTransactions([newTransaction, ...transactions]);
       setShowForm(false);
@@ -80,7 +79,7 @@ const Transactions: React.FC = () => {
     }
   };
 
-  const handleUpdateTransaction = async (id: string, updatedTransaction: Partial<any>) => {
+  const handleUpdateTransaction = async (id: string, updatedTransaction: Partial<Transaction>) => {
     try {
       const updated = await transactionApi.updateTransaction(id, updatedTransaction);
       setTransactions(transactions.map(t => t.id === id ? updated : t));
