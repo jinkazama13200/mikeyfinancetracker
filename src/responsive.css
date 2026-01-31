@@ -1,24 +1,24 @@
-/* Mobile Responsive Styles */
+/* Mobile Responsive Styles for iPhone 13 Pro Max and larger mobile devices */
 
-/* Tablet Styles */
-@media (max-width: 768px) {
+/* iPhone 13 Pro Max specific styles (428px - 767px) */
+@media (min-width: 428px) and (max-width: 767px) {
   .max-w-7xl {
-    max-width: 90%;
+    max-width: 95%;
   }
   
   .px-4 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   
   .py-8 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
   
   .text-4xl {
-    font-size: 1.75rem;
-    line-height: 2rem;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
   }
   
   .grid-cols-3 {
@@ -34,23 +34,23 @@
   }
   
   .space-x-4 {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
   }
   
   /* Transaction table adjustments */
   .min-w-full {
-    min-width: auto;
+    min-width: max-content;
   }
   
   .px-6 {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
   
   .py-3 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
   }
   
   .text-xs {
@@ -58,31 +58,46 @@
   }
   
   .py-4 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
   }
   
   /* Adjust navigation */
   .flex.justify-between.h-16 {
     height: auto;
     flex-wrap: wrap;
-    padding: 0.5rem 0;
+    padding: 0.75rem 0;
   }
   
   .flex.items-center.space-x-3 {
     margin-top: 0.5rem;
   }
+  
+  /* Card view for mobile */
+  .bg-white.shadow-xl.rounded-2xl.overflow-hidden {
+    border-radius: 1.5rem;
+  }
+  
+  .px-7.py-6 {
+    padding: 1rem 1.25rem;
+  }
+  
+  .p-7 {
+    padding: 1rem;
+  }
 }
 
-/* Mobile Styles */
-@media (max-width: 640px) {
+/* Mobile Styles for smaller devices (up to 427px) */
+@media (max-width: 427px) {
   .max-w-7xl {
     max-width: 100%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
   
   .px-4 {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
   
   .text-4xl {
@@ -174,84 +189,59 @@
   }
 }
 
-/* Extra small devices (phones, 480px and down) */
-@media (max-width: 480px) {
-  .text-4xl {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
+/* Styles for larger mobile devices (iPhone 13 Pro Max and similar) */
+@media (min-width: 428px) and (max-width: 767px) {
+  body {
+    font-size: 16px; /* Slightly larger font for bigger mobile screens */
   }
   
-  .text-2xl {
-    font-size: 1.25rem;
-  }
-  
-  .px-7 {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  
-  .py-6 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  
-  .text-xl {
+  .text-base {
     font-size: 1rem;
   }
   
-  .p-7 {
-    padding: 0.5rem;
+  .text-lg {
+    font-size: 1.125rem;
+  }
+  
+  .text-xl {
+    font-size: 1.25rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .text-4xl {
+    font-size: 2rem;
   }
   
   .btn-animated {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
+    padding: 0.75rem 1.25rem;
   }
   
-  .truncate.max-w-\[120px\] {
-    max-width: 80px;
+  input, select, textarea {
+    padding: 0.75rem;
   }
   
-  /* Adjust table for very small screens */
-  .overflow-x-auto {
-    overflow-x: scroll;
+  .rounded-xl {
+    border-radius: 0.75rem;
   }
   
-  /* Stack table cells vertically */
-  tbody tr {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  
-  tbody td {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.25rem 0;
-    border-bottom: 1px solid #f3f4f6;
-  }
-  
-  tbody td:last-child {
-    border-bottom: none;
-  }
-  
-  /* Hide labels on mobile */
-  thead {
-    display: none;
+  .rounded-2xl {
+    border-radius: 1rem;
   }
 }
 
 /* Specific mobile navigation adjustments */
 @media (max-width: 768px) {
   nav .max-w-7xl.mx-auto.px-4.sm\:px-6.lg\:px-8 {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
   
   nav .flex.justify-between.h-16 {
-    min-height: 4rem;
+    min-height: 4.5rem;
+    align-items: center;
   }
   
   nav .flex.items-center.space-x-4 {
@@ -267,9 +257,10 @@
 /* Improve touch targets */
 @media (max-width: 768px) {
   button, .btn-animated {
-    min-height: 2.5rem;
-    min-width: 2.5rem;
-    display: flex;
+    min-height: 3rem;
+    min-width: auto;
+    padding: 0.75rem 1rem;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
   }
@@ -277,15 +268,52 @@
   .text-sm {
     line-height: 1.4;
   }
+  
+  input, select {
+    min-height: 3rem;
+  }
 }
 
 /* Adjust form elements for mobile */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   input[type="text"],
   input[type="number"],
   input[type="date"],
   select {
-    min-height: 2.5rem;
+    min-height: 3rem;
+    padding: 0.75rem;
+  }
+}
+
+/* Responsive table for mobile devices */
+@media (max-width: 768px) {
+  .hidden.md\:block {
+    display: none;
+  }
+  
+  .md\:hidden {
+    display: block;
+  }
+  
+  /* Card-style layout for mobile */
+  .transaction-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .max-w-7xl {
+    max-width: 95%;
+  }
+  
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

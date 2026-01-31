@@ -215,7 +215,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
       <div className="md:hidden space-y-3">
         {transactions.length > 0 ? (
           transactions.map((transaction) => (
-            <div key={transaction.id} className={`border rounded-lg p-4 shadow-sm ${transaction.type === 'income' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+            <div key={transaction.id} className={`transaction-card ${transaction.type === 'income' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
               {editingId === transaction.id ? (
                 <div className="space-y-3">
                   <div>
@@ -224,7 +224,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                       type="text"
                       value={editForm.description || ''}
                       onChange={(e) => setEditForm({...editForm, description: e.target.value})}
-                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                     />
                   </div>
                   <div>
@@ -233,7 +233,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                       type="date"
                       value={editForm.date || ''}
                       onChange={(e) => setEditForm({...editForm, date: e.target.value})}
-                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                     />
                   </div>
                   <div>
@@ -241,7 +241,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                     <select
                       value={editForm.type || ''}
                       onChange={(e) => setEditForm({...editForm, type: e.target.value as 'income' | 'expense'})}
-                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                     >
                       <option value="income">{language === 'en' ? 'Income' : 'Thu nhập'}</option>
                       <option value="expense">{language === 'en' ? 'Expense' : 'Chi tiêu'}</option>
@@ -253,19 +253,19 @@ const TransactionList: React.FC<TransactionListProps> = ({
                       type="number"
                       value={editForm.amount || ''}
                       onChange={(e) => setEditForm({...editForm, amount: Number(e.target.value)})}
-                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                     />
                   </div>
                   <div className="flex space-x-2 pt-2">
                     <button
                       onClick={() => handleSave(transaction.id)}
-                      className="flex-1 text-xs bg-green-500 text-white py-1.5 px-3 rounded hover:bg-green-600"
+                      className="flex-1 text-sm bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600"
                     >
                       {language === 'en' ? 'Save' : 'Lưu'}
                     </button>
                     <button
                       onClick={handleCancel}
-                      className="flex-1 text-xs bg-gray-500 text-white py-1.5 px-3 rounded hover:bg-gray-600"
+                      className="flex-1 text-sm bg-gray-500 text-white py-2 px-3 rounded-lg hover:bg-gray-600"
                     >
                       {language === 'en' ? 'Cancel' : 'Hủy'}
                     </button>
@@ -276,7 +276,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                   <div className="flex justify-between items-start">
                     <div className="flex-1 min-w-0">
                       <h3 className="font-medium text-gray-900 truncate">{transaction.description}</h3>
-                      <p className="text-sm text-gray-500">{formatDate(transaction.date)}</p>
+                      <p className="text-sm text-gray-500 mt-1">{formatDate(transaction.date)}</p>
                     </div>
                     <div className="text-right">
                       <p className={`font-semibold ${
@@ -294,11 +294,11 @@ const TransactionList: React.FC<TransactionListProps> = ({
                     </div>
                   </div>
                   {(onDeleteTransaction || onUpdateTransaction) && (
-                    <div className="flex justify-end space-x-2 mt-2 pt-2 border-t border-gray-100">
+                    <div className="flex justify-end space-x-2 mt-3 pt-2 border-t border-gray-100">
                       {onUpdateTransaction && (
                         <button
                           onClick={() => handleEdit(transaction)}
-                          className="text-xs bg-blue-500 text-white py-1.5 px-3 rounded hover:bg-blue-600"
+                          className="text-sm bg-blue-500 text-white py-2 px-3 rounded-lg hover:bg-blue-600"
                         >
                           {language === 'en' ? 'Edit' : 'Sửa'}
                         </button>
@@ -306,7 +306,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                       {onDeleteTransaction && (
                         <button
                           onClick={() => onDeleteTransaction(transaction.id)}
-                          className="text-xs bg-red-500 text-white py-1.5 px-3 rounded hover:bg-red-600"
+                          className="text-sm bg-red-500 text-white py-2 px-3 rounded-lg hover:bg-red-600"
                         >
                           {language === 'en' ? 'Delete' : 'Xóa'}
                         </button>
