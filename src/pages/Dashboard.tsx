@@ -50,6 +50,7 @@ const Dashboard: React.FC = () => {
     
     setIncome(totalIncome);
     setExpenses(totalExpenses);
+    // Balance is calculated as income minus expenses (can be negative if expenses exceed income)
     setBalance(totalIncome - totalExpenses);
   }, [transactions]);
 

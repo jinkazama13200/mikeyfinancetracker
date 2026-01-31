@@ -55,7 +55,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
         <span className="text-xl">{icon}</span>
       </div>
       <p className={`mt-2 text-3xl font-bold ${textColor} transition-all duration-500`}>
-        {type === 'income' || type === 'expense' ? (type === 'income' ? '+' : '-') : ''}
+        {type === 'income' ? '+' : type === 'expense' ? '-' : value < 0 ? '-' : ''}
         {Math.abs(value).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {language === 'vi' ? 'VND' : '$'}
       </p>
     </div>
