@@ -5,7 +5,7 @@ import { useTranslation } from '../i18n';
 import TransactionList from '../components/TransactionList';
 import SummaryCard from '../components/SummaryCard';
 import ExpenseChart from '../components/ExpenseChart';
-import CurrencyTracker from '../components/CurrencyTracker';
+import BankRatesTracker from '../components/BankRatesTracker';
 import { transactionApi, Transaction } from '../services/api';
 
 const Dashboard: React.FC = () => {
@@ -201,7 +201,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         <div className="mb-6">
-          <CurrencyTracker />
+          <BankRatesTracker />
         </div>
       </main>
     </div>
