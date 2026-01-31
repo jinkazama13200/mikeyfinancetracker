@@ -49,29 +49,29 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
   };
 
   return (
-    <div className={`bg-[#f5f3bb]/40 backdrop-blur-sm rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-sm card-hover border ${
-      type === 'income' ? 'border-[#86ba90]/60' : 
-      type === 'expense' ? 'border-[#df2935]/60' : 
-      type === 'balance' ? 'border-[#dfa06e]/60' : 'border-[#412722]/60'
+    <div className={`bg-[#e9c46a]/40 backdrop-blur-sm rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-sm card-hover border ${
+      type === 'income' ? 'border-[#2a9d8f]/60' : 
+      type === 'expense' ? 'border-[#e76f51]/60' : 
+      type === 'balance' ? 'border-[#f4a261]/60' : 'border-[#264653]/60'
     } transition-all duration-300 relative overflow-hidden`}>
       <div className="absolute inset-0 glass-effect z-0 rounded-xl opacity-70"></div>
       <div className="relative z-10">
         <div className="flex items-center justify-between">
           <p className={`text-xs font-medium ${
-            type === 'income' ? 'text-[#86ba90]' : 
-            type === 'expense' ? 'text-[#df2935]' : 
-            type === 'balance' ? 'text-[#dfa06e]' : 'text-[#412722]'
+            type === 'income' ? 'text-[#2a9d8f]' : 
+            type === 'expense' ? 'text-[#e76f51]' : 
+            type === 'balance' ? 'text-[#f4a261]' : 'text-[#264653]'
           } truncate`}>{getTitle()}</p>
           <span className={`text-base sm:text-lg ${
-            type === 'income' ? 'text-[#86ba90]' : 
-            type === 'expense' ? 'text-[#df2935]' : 
-            type === 'balance' ? 'text-[#dfa06e]' : 'text-[#412722]'
+            type === 'income' ? 'text-[#2a9d8f]' : 
+            type === 'expense' ? 'text-[#e76f51]' : 
+            type === 'balance' ? 'text-[#f4a261]' : 'text-[#264653]'
           }`}>{icon}</span>
         </div>
         <p className={`mt-1 sm:mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold ${
-          type === 'income' ? 'text-[#86ba90]' : 
-          type === 'expense' ? 'text-[#df2935]' : 
-          type === 'balance' ? 'text-[#dfa06e]' : 'text-[#412722]'
+          type === 'income' ? 'text-[#2a9d8f]' : 
+          type === 'expense' ? 'text-[#e76f51]' : 
+          type === 'balance' ? 'text-[#f4a261]' : 'text-[#264653]'
         } transition-all duration-500 break-words`}>
           {type === 'income' ? '+' : type === 'expense' ? '-' : value < 0 ? '-' : ''}
           {Math.abs(value).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {language === 'vi' ? 'VND' : '$'}

@@ -100,12 +100,12 @@
 
 /* Glass Effect */
 .glass-effect {
-  background: rgba(245, 243, 187, 0.4); /* f5f3bb */
+  background: rgba(233, 196, 106, 0.4); /* e9c46a - vàng nhạt */
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(245, 243, 187, 0.4);
+  border: 1px solid rgba(233, 196, 106, 0.4);
   position: absolute;
   top: 0;
   left: 0;
@@ -115,105 +115,110 @@
   border-radius: inherit;
 }
 
-/* Color Palette */
+/* New Color Palette */
 .color-income {
-  color: #86ba90; /* xanh lá cây */
+  color: #2a9d8f; /* xanh ngọc */
 }
 
 .color-expense {
-  color: #df2935; /* đỏ cam */
+  color: #e76f51; /* đỏ cam */
 }
 
 .color-savings {
-  color: #dfa06e; /* cam */
+  color: #f4a261; /* cam */
 }
 
 .color-total {
-  color: #412722; /* nâu đen */
+  color: #264653; /* xanh đậm gần đen */
 }
 
 .bg-income {
-  background-color: #86ba90;
+  background-color: #2a9d8f;
 }
 
 .bg-expense {
-  background-color: #df2935;
+  background-color: #e76f51;
 }
 
 .bg-savings {
-  background-color: #dfa06e;
+  background-color: #f4a261;
 }
 
 .bg-total {
-  background-color: #412722;
+  background-color: #264653;
 }
 
 /* Chart colors */
 .chart-income {
-  background-color: #86ba90;
+  background-color: #2a9d8f;
 }
 
 .chart-expense {
-  background-color: #df2935;
+  background-color: #e76f51;
 }
 
 .chart-savings {
-  background-color: #dfa06e;
+  background-color: #f4a261;
 }
 
 /* Button hover effects */
 .btn-income:hover {
-  background-color: #7aa580;
+  background-color: #248a7d; /* tối hơn một chút */
 }
 
 .btn-expense:hover {
-  background-color: #c4232f;
+  background-color: #d45e44; /* tối hơn một chút */
 }
 
 .btn-savings:hover {
-  background-color: #c48f62;
+  background-color: #e09256; /* tối hơn một chút */
 }
 
 /* Enhanced color combinations */
 .text-primary {
-  color: #412722; /* nâu đen */
+  color: #264653; /* xanh đậm gần đen */
 }
 
 .text-secondary {
-  color: #dfa06e; /* cam */
+  color: #f4a261; /* cam */
 }
 
 .text-accent {
-  color: #86ba90; /* xanh lá */
+  color: #2a9d8f; /* xanh ngọc */
 }
 
 .text-danger {
-  color: #df2935; /* đỏ cam */
+  color: #e76f51; /* đỏ cam */
 }
 
 .bg-light {
-  background-color: #f5f3bb; /* vàng nhạt */
+  background-color: #e9c46a; /* vàng nhạt */
 }
 
 .border-theme {
-  border-color: #f5f3bb;
+  border-color: #e9c46a;
 }
 
 /* Gradient for backgrounds */
 .bg-gradient-theme {
-  background: linear-gradient(135deg, #f5f3bb, #86ba90);
+  background: linear-gradient(135deg, #e9c46a, #2a9d8f);
 }
 
 .bg-gradient-income {
-  background: linear-gradient(135deg, #a0d4a8, #86ba90);
+  background: linear-gradient(135deg, #4fb0a1, #2a9d8f);
 }
 
 .bg-gradient-expense {
-  background: linear-gradient(135deg, #e75a5a, #df2935);
+  background: linear-gradient(135deg, #ec8a72, #e76f51);
 }
 
 .bg-gradient-savings {
-  background: linear-gradient(135deg, #f0c28a, #dfa06e);
+  background: linear-gradient(135deg, #f6b37d, #f4a261);
+}
+
+/* Card background */
+.bg-card {
+  background: rgba(233, 196, 106, 0.3); /* e9c46a/30 */
 }
 
 /* Color Palette */
