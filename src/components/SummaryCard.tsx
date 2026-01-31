@@ -49,12 +49,12 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
   };
 
   return (
-    <div className={`${bgColor} rounded-xl p-3 sm:p-4 md:p-6 shadow-lg card-hover border border-gray-100 transition-all duration-300`}>
+    <div className={`${bgColor} rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-lg card-hover border border-gray-100 transition-all duration-300`}>
       <div className="flex items-center justify-between">
-        <p className="text-xs sm:text-sm font-medium text-gray-600 truncate">{getTitle()}</p>
-        <span className="text-lg sm:text-xl">{icon}</span>
+        <p className="text-xs font-medium text-gray-600 truncate">{getTitle()}</p>
+        <span className="text-base sm:text-lg">{icon}</span>
       </div>
-      <p className={`mt-1 sm:mt-2 text-xl sm:text-2xl md:text-3xl font-bold break-all ${textColor} transition-all duration-500`}>
+      <p className={`mt-1 sm:mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold ${textColor} transition-all duration-500 break-words`}>
         {type === 'income' ? '+' : type === 'expense' ? '-' : value < 0 ? '-' : ''}
         {Math.abs(value).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {language === 'vi' ? 'VND' : '$'}
       </p>
