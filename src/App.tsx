@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
+import BankAccounts from './pages/BankAccounts';
 import './App.css';
 import './responsive.css';
 
@@ -35,6 +36,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/transactions" element={<Transactions />} />
+              <Route path="/bank-accounts" element={<BankAccounts />} />
             </Routes>
           </div>
         </Router>
