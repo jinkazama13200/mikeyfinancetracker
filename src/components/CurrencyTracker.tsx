@@ -47,12 +47,10 @@ const CurrencyTracker: React.FC = () => {
     
     try {
       // Fetch real exchange rates from a free API
-      const [usdResponse, usdtResponse] = await Promise.all([
-        fetch('https://api.exchangerate-api.com/v4/latest/USD'),
-        fetch('https://api.binance.com/api/v3/ticker/price?symbol=USDTVND') // Binance API for USDT/VND
-      ]);
+      // We'll get USD/VND from ExchangeRate API and approximate USDT/VND from USD/VND
+      const usdResponse = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
       
-      if (!usdResponse.ok && !usdtResponse.ok) {
+      if (!usdResponse.ok) {
         throw new Error('Failed to fetch currency rates');
       }
       
@@ -65,13 +63,26 @@ const CurrencyTracker: React.FC = () => {
         }
       }
       
-      // Process USDT/VND rate
-      let usdtVndRate = 23450; // fallback value
-      if (usdtResponse.ok) {
-        const usdtData = await usdtResponse.json();
-        if (usdtData.price) {
-          usdtVndRate = parseFloat(usdtData.price);
+      // For USDT/VND, we'll use USD/VND rate with a small premium/discount
+      // USDT typically trades close to USD parity but can vary slightly
+      // In Vietnam market, USDT sometimes trades at a slight premium/discount to USD
+      const usdtPremium = 0.995; // Typically USDT trades slightly below USD in Vietnam
+      let usdtVndRate = usdVndRate * usdtPremium; // fallback value
+      
+      // Try to get more accurate USDT/VND from alternative source
+      try {
+        const usdtResponse = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=USDTUSDC'); // USDT/USDC pair
+        if (usdtResponse.ok) {
+          const usdtData = await usdtResponse.json();
+          if (usdtData.price) {
+            const usdtUsdRate = parseFloat(usdtData.price);
+            // Combine with USD/VND to get USDT/VND
+            usdtVndRate = usdVndRate * usdtUsdRate;
+          }
         }
+      } catch (usdtErr) {
+        // If USDT/USDC pair fails, use the standard approximation
+        console.error('Error fetching USDT rate:', usdtErr);
       }
       
       // Calculate changes based on previous values if available
