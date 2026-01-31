@@ -50,6 +50,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
 
   return (
     <div className="bg-transparent rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-lg card-hover border border-gray-100 transition-all duration-300 relative overflow-hidden">
+      <div className="absolute inset-0 glass-effect z-0 rounded-xl"></div>
       <div className="relative z-10">
         <div className="flex items-center justify-between">
           <p className="text-xs font-medium text-gray-600 truncate">{getTitle()}</p>
