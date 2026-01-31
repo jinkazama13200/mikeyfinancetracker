@@ -37,13 +37,13 @@ const Register: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-10">
         <div className="text-center">
-          <div className="mx-auto h-16 w-16 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+          <div className="mx-auto h-16 w-16 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg cursor-pointer" onClick={() => navigate('/dashboard')}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
             </svg>
           </div>
           <h2 className="mt-6 text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            {language === 'en' ? 'Personal Finance Tracker' : 'Quản Lý Tài Chính Cá Nhân'}
+            MyFinanceTracker
           </h2>
           <p className="mt-3 text-lg text-gray-600">
             {language === 'en' ? 'Create a new account' : 'Tạo tài khoản mới'}
