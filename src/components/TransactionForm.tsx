@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from '../i18n';
 
 interface TransactionFormData {
   type: 'income' | 'expense';
@@ -13,6 +14,7 @@ interface TransactionFormProps {
 }
 
 const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) => {
+  const { language } = useTranslation();
   const [formData, setFormData] = useState<TransactionFormData>({
     type: 'expense',
     amount: '',
@@ -48,7 +50,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="type" className="block text-sm font-medium text-gray-700">
-            Type
+            {language === 'en' ? 'Type' : 'Loại giao dịch'}
           </label>
           <select
             id="type"
@@ -57,14 +59,14 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             onChange={handleChange}
             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           >
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
+            <option value="income">{language === 'en' ? 'Income' : 'Thu nhập'}</option>
+            <option value="expense">{language === 'en' ? 'Expense' : 'Chi tiêu'}</option>
           </select>
         </div>
         
         <div>
           <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
-            Amount
+            {language === 'en' ? 'Amount' : 'Số tiền'}
           </label>
           <input
             type="number"
@@ -76,13 +78,13 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             step="0.01"
             required
             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-            placeholder="0.00"
+            placeholder={language === 'en' ? '0.00' : '0.00'}
           />
         </div>
         
         <div>
           <label htmlFor="currency" className="block text-sm font-medium text-gray-700">
-            Currency
+            {language === 'en' ? 'Currency' : 'Tiền tệ'}
           </label>
           <select
             id="currency"
@@ -91,14 +93,14 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             onChange={handleChange}
             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           >
-            <option value="VND">VND</option>
-            <option value="USD">USD</option>
+            <option value="VND">{language === 'en' ? 'Vietnamese Dong (VND)' : 'Đồng Việt Nam (VND)'}</option>
+            <option value="USD">{language === 'en' ? 'US Dollar (USD)' : 'Đô la Mỹ (USD)'}</option>
           </select>
         </div>
         
         <div>
           <label htmlFor="date" className="block text-sm font-medium text-gray-700">
-            Date
+            {language === 'en' ? 'Date' : 'Ngày'}
           </label>
           <input
             type="date"
@@ -113,7 +115,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
         
         <div>
           <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-            Description
+            {language === 'en' ? 'Description' : 'Mô tả'}
           </label>
           <input
             type="text"
@@ -123,7 +125,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             onChange={handleChange}
             required
             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-            placeholder="Enter description"
+            placeholder={language === 'en' ? 'Enter description' : 'Nhập mô tả'}
           />
         </div>
       </div>
@@ -133,7 +135,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
           type="submit"
           className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          Add Transaction
+          {language === 'en' ? 'Add Transaction' : 'Thêm giao dịch'}
         </button>
       </div>
     </form>

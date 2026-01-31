@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from '../i18n';
 
 interface SummaryCardProps {
   title: string;
@@ -7,6 +8,7 @@ interface SummaryCardProps {
 }
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
+  const { language } = useTranslation();
   let bgColor = '';
   let textColor = '';
 
@@ -28,12 +30,26 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
       textColor = 'text-gray-800';
   }
 
+  // Format title based on type
+  const getTitle = () => {
+    switch(type) {
+      case 'income':
+        return language === 'en' ? 'Income' : 'Thu nhập';
+      case 'expense':
+        return language === 'en' ? 'Expenses' : 'Chi tiêu';
+      case 'balance':
+        return language === 'en' ? 'Balance' : 'Số dư';
+      default:
+        return title;
+    }
+  };
+
   return (
     <div className={`${bgColor} rounded-lg p-6 shadow`}>
-      <p className="text-sm font-medium text-gray-600">{title}</p>
+      <p className="text-sm font-medium text-gray-600">{getTitle()}</p>
       <p className={`mt-2 text-3xl font-semibold ${textColor}`}>
         {type === 'income' || type === 'expense' ? (type === 'income' ? '+' : '-') : ''}
-        ${Math.abs(value).toFixed(2)}
+        {Math.abs(value).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {language === 'vi' ? 'VND' : '$'}
       </p>
     </div>
   );

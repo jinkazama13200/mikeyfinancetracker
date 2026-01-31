@@ -70,7 +70,7 @@ const Dashboard: React.FC = () => {
                     <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="ml-2 text-xl font-bold text-gray-900 cursor-pointer hover:text-indigo-700" onClick={() => window.location.href='/dashboard'}>Personal Finance Tracker</span>
+                <span className="ml-2 text-xl font-bold text-gray-900 cursor-pointer hover:text-indigo-700" onClick={() => navigate('/dashboard')}>{language === 'en' ? 'Personal Finance Tracker' : 'Quản Lý Tài Chính Cá Nhân'}</span>
               </div>
             </div>
             <div className="flex items-center">
@@ -102,13 +102,13 @@ const Dashboard: React.FC = () => {
               </div>
               
               <div className="mr-2">
-                <span className="text-sm font-medium text-gray-700">Welcome, {user?.username}</span>
+                <span className="text-sm font-medium text-gray-700">{language === 'en' ? 'Welcome,' : 'Chào mừng,'} {user?.username}</span>
               </div>
               <button
                 onClick={handleLogout}
-                className="ml-4 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-md hover:shadow-lg transition duration-300"
+                className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-md hover:shadow-lg transition duration-300"
               >
-                Logout
+                {language === 'en' ? 'Logout' : 'Đăng xuất'}
               </button>
             </div>
           </div>
@@ -117,14 +117,14 @@ const Dashboard: React.FC = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="mt-2 text-gray-600">Overview of your financial activity</p>
+          <h1 className="text-3xl font-bold text-gray-900">{language === 'en' ? 'Dashboard' : 'Bảng điều khiển'}</h1>
+          <p className="mt-2 text-gray-600">{language === 'en' ? 'Overview of your financial activity' : 'Tổng quan về hoạt động tài chính của bạn'}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <SummaryCard title="Balance" value={balance} type="balance" />
-          <SummaryCard title="Income" value={income} type="income" />
-          <SummaryCard title="Expenses" value={expenses} type="expense" />
+          <SummaryCard title={language === 'en' ? 'Balance' : 'Số dư'} value={balance} type="balance" />
+          <SummaryCard title={language === 'en' ? 'Income' : 'Thu nhập'} value={income} type="income" />
+          <SummaryCard title={language === 'en' ? 'Expenses' : 'Chi tiêu'} value={expenses} type="expense" />
         </div>
 
         <div className="bg-white shadow-xl rounded-lg overflow-hidden">
@@ -134,13 +134,13 @@ const Dashboard: React.FC = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
-                Recent Transactions
+                {language === 'en' ? 'Recent Transactions' : 'Giao dịch gần đây'}
               </h2>
               <Link
                 to="/transactions"
                 className="text-indigo-600 hover:text-indigo-900 text-sm font-medium flex items-center"
               >
-                View all
+                {language === 'en' ? 'View all' : 'Xem tất cả'}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -150,127 +150,6 @@ const Dashboard: React.FC = () => {
           <div className="p-6">
             <TransactionList transactions={transactions.slice(0, 5)} />
           </div>
-        </div>
-      </main>
-    </div>
-  );
-};
-
-  // Load transactions for the user
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        if (user) {
-          const userTransactions = await transactionApi.getTransactionsByUserId(user.id);
-          setTransactions(userTransactions);
-        }
-      } catch (error) {
-        console.error('Error fetching transactions:', error);
-        // Start with empty array if API fails
-        setTransactions([]);
-      }
-    };
-
-    if (user) {
-      fetchTransactions();
-    }
-  }, [user]);
-
-  useEffect(() => {
-    // Calculate summary values
-    let totalIncome = 0;
-    let totalExpenses = 0;
-    
-    transactions.forEach(transaction => {
-      if (transaction.type === 'income') {
-        totalIncome += transaction.amount;
-      } else {
-        totalExpenses += transaction.amount;
-      }
-    });
-    
-    setIncome(totalIncome);
-    setExpenses(totalExpenses);
-    setBalance(totalIncome - totalExpenses);
-  }, [transactions]);
-
-  const handleLogout = () => {
-    logout();
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <div className="ml-6 flex items-center">
-                <span className="text-xl font-bold text-indigo-600 cursor-pointer hover:text-indigo-800" onClick={() => window.location.href='/'}>Personal Finance Tracker</span>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              {/* Language selector */}
-              <div className="inline-flex rounded-md shadow-sm" role="group">
-                <button
-                  type="button"
-                  className={`px-3 py-1 text-xs font-medium rounded-l-lg ${
-                    language === 'en'
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-100'
-                  }`}
-                  onClick={() => setLanguage('en')}
-                >
-                  EN
-                </button>
-                <button
-                  type="button"
-                  className={`px-3 py-1 text-xs font-medium rounded-r-md ${
-                    language === 'vi'
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-100'
-                  }`}
-                  onClick={() => setLanguage('vi')}
-                >
-                  VI
-                </button>
-              </div>
-              
-              <div className="mr-2">
-                <span className="text-sm font-medium text-gray-700">Welcome, {user?.username}</span>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <SummaryCard title="Balance" value={balance} type="balance" />
-          <SummaryCard title="Income" value={income} type="income" />
-          <SummaryCard title="Expenses" value={expenses} type="expense" />
-        </div>
-
-        <div className="bg-white shadow rounded-lg p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-medium text-gray-900">Recent Transactions</h2>
-            <Link
-              to="/transactions"
-              className="text-indigo-600 hover:text-indigo-900 text-sm font-medium"
-            >
-              View all
-            </Link>
-          </div>
-          <TransactionList transactions={transactions.slice(0, 5)} />
         </div>
       </main>
     </div>

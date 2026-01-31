@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from '../i18n';
 
 interface Transaction {
   id: string;
@@ -18,9 +19,10 @@ const TransactionList: React.FC<TransactionListProps> = ({
   transactions, 
   onDeleteTransaction 
 }) => {
+  const { language } = useTranslation();
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    return new Date(dateString).toLocaleDateString(language === 'vi' ? 'vi-VN' : 'en-US', options);
   };
 
   return (
@@ -32,32 +34,32 @@ const TransactionList: React.FC<TransactionListProps> = ({
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Description
+              {language === 'en' ? 'Description' : 'Mô tả'}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Date
+              {language === 'en' ? 'Date' : 'Ngày'}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Type
+              {language === 'en' ? 'Type' : 'Loại'}
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Amount
+              {language === 'en' ? 'Amount' : 'Số tiền'}
             </th>
             {onDeleteTransaction && (
               <th
                 scope="col"
                 className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Actions
+                {language === 'en' ? 'Actions' : 'Hành động'}
               </th>
             )}
           </tr>
@@ -80,7 +82,9 @@ const TransactionList: React.FC<TransactionListProps> = ({
                         : 'bg-red-100 text-red-800'
                     }`}
                   >
-                    {transaction.type === 'income' ? 'Income' : 'Expense'}
+                    {transaction.type === 'income' ? 
+                      (language === 'en' ? 'Income' : 'Thu nhập') : 
+                      (language === 'en' ? 'Expense' : 'Chi tiêu')}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium">
@@ -91,7 +95,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                         : 'text-red-600 font-semibold'
                     }
                   >
-                    {transaction.type === 'income' ? '+' : '-'}{transaction.amount.toLocaleString()} {transaction.currency || 'VND'}
+                    {transaction.type === 'income' ? '+' : '-'}{transaction.amount.toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {transaction.currency || (language === 'vi' ? 'VND' : 'VND')}
                   </span>
                 </td>
                 {onDeleteTransaction && (
@@ -100,7 +104,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                       onClick={() => onDeleteTransaction(transaction.id)}
                       className="text-red-600 hover:text-red-900"
                     >
-                      Delete
+                      {language === 'en' ? 'Delete' : 'Xóa'}
                     </button>
                   </td>
                 )}
@@ -109,7 +113,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
           ) : (
             <tr>
               <td colSpan={onDeleteTransaction ? 5 : 4} className="px-6 py-4 text-center text-sm text-gray-500">
-                No transactions found
+                {language === 'en' ? 'No transactions found' : 'Không có giao dịch nào'}
               </td>
             </tr>
           )}

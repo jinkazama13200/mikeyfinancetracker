@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from '../i18n';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -10,12 +11,13 @@ const Register: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { register } = useAuth();
+  const { language } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError(language === 'en' ? 'Passwords do not match' : 'Mật khẩu không khớp');
       return;
     }
     
@@ -24,22 +26,22 @@ const Register: React.FC = () => {
       if (success) {
         navigate('/dashboard');
       } else {
-        setError('Registration failed. Please try again.');
+        setError(language === 'en' ? 'Registration failed. Please try again.' : 'Đăng ký thất bại. Vui lòng thử lại.');
       }
     } catch (err) {
-      setError('An error occurred during registration.');
+      setError(language === 'en' ? 'An error occurred during registration.' : 'Đã xảy ra lỗi trong quá trình đăng ký.');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Personal Finance Tracker
+            {language === 'en' ? 'Personal Finance Tracker' : 'Quản Lý Tài Chính Cá Nhân'}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Create a new account
+            {language === 'en' ? 'Create a new account' : 'Tạo tài khoản mới'}
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -50,53 +52,61 @@ const Register: React.FC = () => {
           )}
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="username" className="sr-only">Username</label>
+              <label htmlFor="username" className="sr-only">
+                {language === 'en' ? 'Username' : 'Tên đăng nhập'}
+              </label>
               <input
                 id="username"
                 name="username"
                 type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Username"
+                placeholder={language === 'en' ? 'Username' : 'Tên đăng nhập'}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="email" className="sr-only">Email</label>
+              <label htmlFor="email" className="sr-only">
+                {language === 'en' ? 'Email' : 'Email'}
+              </label>
               <input
                 id="email"
                 name="email"
                 type="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email"
+                placeholder={language === 'en' ? 'Email' : 'Email'}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
+              <label htmlFor="password" className="sr-only">
+                {language === 'en' ? 'Password' : 'Mật khẩu'}
+              </label>
               <input
                 id="password"
                 name="password"
                 type="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                placeholder={language === 'en' ? 'Password' : 'Mật khẩu'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="confirmPassword" className="sr-only">Confirm Password</label>
+              <label htmlFor="confirmPassword" className="sr-only">
+                {language === 'en' ? 'Confirm Password' : 'Xác nhận mật khẩu'}
+              </label>
               <input
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Confirm Password"
+                placeholder={language === 'en' ? 'Confirm Password' : 'Xác nhận mật khẩu'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
@@ -106,15 +116,15 @@ const Register: React.FC = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md hover:shadow-lg transition duration-300"
             >
-              Register
+              {language === 'en' ? 'Register' : 'Đăng ký'}
             </button>
           </div>
         </form>
         <div className="text-center">
           <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Already have an account? Sign in
+            {language === 'en' ? 'Already have an account? Sign in' : 'Đã có tài khoản? Đăng nhập'}
           </Link>
         </div>
       </div>
