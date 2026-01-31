@@ -79,6 +79,17 @@ const Transactions: React.FC = () => {
     }
   };
 
+  const handleUpdateTransaction = async (id: string, updatedTransaction: Partial<any>) => {
+    try {
+      const updated = await transactionApi.updateTransaction(id, updatedTransaction);
+      setTransactions(transactions.map(t => t.id === id ? updated : t));
+    } catch (error) {
+      console.error('Error updating transaction:', error);
+      // Fallback to local state in case of API failure
+      setTransactions(transactions.map(t => t.id === id ? {...t, ...updatedTransaction} : t));
+    }
+  };
+
   const handleLogout = () => {
     logout();
     navigate('/login');
@@ -184,7 +195,8 @@ const Transactions: React.FC = () => {
           <div className="p-7">
             <TransactionList 
               transactions={transactions} 
-              onDeleteTransaction={handleDeleteTransaction} 
+              onDeleteTransaction={handleDeleteTransaction}
+              onUpdateTransaction={handleUpdateTransaction}
             />
           </div>
         </div>

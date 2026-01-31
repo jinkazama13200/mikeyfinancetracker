@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from '../i18n';
 
 interface Transaction {
@@ -13,16 +13,39 @@ interface Transaction {
 interface TransactionListProps {
   transactions: Transaction[];
   onDeleteTransaction?: (id: string) => void;
+  onUpdateTransaction?: (id: string, updatedTransaction: Partial<Transaction>) => void;
 }
 
 const TransactionList: React.FC<TransactionListProps> = ({ 
   transactions, 
-  onDeleteTransaction 
+  onDeleteTransaction,
+  onUpdateTransaction
 }) => {
   const { language } = useTranslation();
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<Partial<Transaction>>({});
+
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(language === 'vi' ? 'vi-VN' : 'en-US', options);
+  };
+
+  const handleEdit = (transaction: Transaction) => {
+    setEditingId(transaction.id);
+    setEditForm({ ...transaction });
+  };
+
+  const handleSave = (id: string) => {
+    if (onUpdateTransaction) {
+      onUpdateTransaction(id, editForm);
+    }
+    setEditingId(null);
+    setEditForm({});
+  };
+
+  const handleCancel = () => {
+    setEditingId(null);
+    setEditForm({});
   };
 
   return (
@@ -54,7 +77,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
             >
               {language === 'en' ? 'Amount' : 'Số tiền'}
             </th>
-            {onDeleteTransaction && (
+            {(onDeleteTransaction || onUpdateTransaction) && (
               <th
                 scope="col"
                 className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -68,51 +91,116 @@ const TransactionList: React.FC<TransactionListProps> = ({
           {transactions.length > 0 ? (
             transactions.map((transaction) => (
               <tr key={transaction.id} className={transaction.type === 'income' ? 'bg-green-50' : 'bg-red-50'}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {transaction.description}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {formatDate(transaction.date)}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <span
-                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      transaction.type === 'income'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}
-                  >
-                    {transaction.type === 'income' ? 
-                      (language === 'en' ? 'Income' : 'Thu nhập') : 
-                      (language === 'en' ? 'Expense' : 'Chi tiêu')}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium">
-                  <span
-                    className={
-                      transaction.type === 'income'
-                        ? 'text-green-600 font-semibold'
-                        : 'text-red-600 font-semibold'
-                    }
-                  >
-                    {transaction.type === 'income' ? '+' : '-'}{transaction.amount.toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {transaction.currency || (language === 'vi' ? 'VND' : 'VND')}
-                  </span>
-                </td>
-                {onDeleteTransaction && (
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button
-                      onClick={() => onDeleteTransaction(transaction.id)}
-                      className="text-red-600 hover:text-red-900"
-                    >
-                      {language === 'en' ? 'Delete' : 'Xóa'}
-                    </button>
-                  </td>
+                {editingId === transaction.id ? (
+                  <>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <input
+                        type="text"
+                        value={editForm.description || ''}
+                        onChange={(e) => setEditForm({...editForm, description: e.target.value})}
+                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm"
+                      />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <input
+                        type="date"
+                        value={editForm.date || ''}
+                        onChange={(e) => setEditForm({...editForm, date: e.target.value})}
+                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm"
+                      />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <select
+                        value={editForm.type || ''}
+                        onChange={(e) => setEditForm({...editForm, type: e.target.value as 'income' | 'expense'})}
+                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm"
+                      >
+                        <option value="income">{language === 'en' ? 'Income' : 'Thu nhập'}</option>
+                        <option value="expense">{language === 'en' ? 'Expense' : 'Chi tiêu'}</option>
+                      </select>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                      <input
+                        type="number"
+                        value={editForm.amount || ''}
+                        onChange={(e) => setEditForm({...editForm, amount: Number(e.target.value)})}
+                        className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm text-right"
+                      />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                      <button
+                        onClick={() => handleSave(transaction.id)}
+                        className="text-green-600 hover:text-green-900"
+                      >
+                        {language === 'en' ? 'Save' : 'Lưu'}
+                      </button>
+                      <button
+                        onClick={handleCancel}
+                        className="text-gray-600 hover:text-gray-900"
+                      >
+                        {language === 'en' ? 'Cancel' : 'Hủy'}
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {transaction.description}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {formatDate(transaction.date)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <span
+                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                          transaction.type === 'income'
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-red-100 text-red-800'
+                        }`}
+                      >
+                        {transaction.type === 'income' ? 
+                          (language === 'en' ? 'Income' : 'Thu nhập') : 
+                          (language === 'en' ? 'Expense' : 'Chi tiêu')}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium">
+                      <span
+                        className={
+                          transaction.type === 'income'
+                            ? 'text-green-600 font-semibold'
+                            : 'text-red-600 font-semibold'
+                        }
+                      >
+                        {transaction.type === 'income' ? '+' : '-'}{transaction.amount.toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {transaction.currency || (language === 'vi' ? 'VND' : 'VND')}
+                      </span>
+                    </td>
+                    {(onDeleteTransaction || onUpdateTransaction) && (
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                        {onUpdateTransaction && (
+                          <button
+                            onClick={() => handleEdit(transaction)}
+                            className="text-blue-600 hover:text-blue-900"
+                          >
+                            {language === 'en' ? 'Edit' : 'Sửa'}
+                          </button>
+                        )}
+                        {onDeleteTransaction && (
+                          <button
+                            onClick={() => onDeleteTransaction(transaction.id)}
+                            className="text-red-600 hover:text-red-900"
+                          >
+                            {language === 'en' ? 'Delete' : 'Xóa'}
+                          </button>
+                        )}
+                      </td>
+                    )}
+                  </>
                 )}
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={onDeleteTransaction ? 5 : 4} className="px-6 py-4 text-center text-sm text-gray-500">
+              <td colSpan={onDeleteTransaction || onUpdateTransaction ? 5 : 4} className="px-6 py-4 text-center text-sm text-gray-500">
                 {language === 'en' ? 'No transactions found' : 'Không có giao dịch nào'}
               </td>
             </tr>

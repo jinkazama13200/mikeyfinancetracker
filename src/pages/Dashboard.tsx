@@ -58,6 +58,28 @@ const Dashboard: React.FC = () => {
     navigate('/login');
   };
 
+  const handleDeleteTransaction = async (id: string) => {
+    try {
+      await transactionApi.deleteTransaction(id);
+      setTransactions(transactions.filter(transaction => transaction.id !== id));
+    } catch (error) {
+      console.error('Error deleting transaction:', error);
+      // Fallback to local state in case of API failure
+      setTransactions(transactions.filter(transaction => transaction.id !== id));
+    }
+  };
+
+  const handleUpdateTransaction = async (id: string, updatedTransaction: Partial<any>) => {
+    try {
+      const updated = await transactionApi.updateTransaction(id, updatedTransaction);
+      setTransactions(transactions.map(t => t.id === id ? updated : t));
+    } catch (error) {
+      console.error('Error updating transaction:', error);
+      // Fallback to local state in case of API failure
+      setTransactions(transactions.map(t => t.id === id ? {...t, ...updatedTransaction} : t));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
       <nav className="bg-white shadow-lg shadow-gray-200/50 backdrop-blur-sm bg-opacity-90 sticky top-0 z-10">
@@ -151,7 +173,11 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           <div className="p-7">
-            <TransactionList transactions={transactions.slice(0, 5)} />
+            <TransactionList 
+              transactions={transactions.slice(0, 5)} 
+              onDeleteTransaction={handleDeleteTransaction}
+              onUpdateTransaction={handleUpdateTransaction}
+            />
           </div>
         </div>
       </main>
