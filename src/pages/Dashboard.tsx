@@ -85,7 +85,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-      <nav className="bg-[#f5f3bb]/30 backdrop-blur-sm sticky top-0 z-10 shadow-sm border-b border-[#f5f3bb]/50 relative overflow-hidden">
+      <nav className="bg-[#f5f3bb]/40 backdrop-blur-sm sticky top-0 z-10 shadow-sm border-b border-[#f5f3bb]/60 relative overflow-hidden">
         <div className="absolute inset-0 glass-effect z-0 opacity-50"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex justify-between h-16 items-center">
@@ -95,7 +95,7 @@ const Dashboard: React.FC = () => {
                   <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
               </div>
-              <h1 className="ml-3 text-xl font-bold text-[#df2935]">
+              <h1 className="ml-3 text-xl font-bold text-[#412722]">
                 {language === 'en' ? 'Tracker' : 'Trình theo dõi'}
               </h1>
             </div>
@@ -106,8 +106,8 @@ const Dashboard: React.FC = () => {
                   type="button"
                   className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-300 ${
                     language === 'en'
-                      ? 'bg-[#f5f3bb]/70 text-[#412722] shadow-inner'
-                      : 'bg-[#f5f3bb]/70 text-[#412722] hover:bg-[#86ba90]/70'
+                      ? 'bg-[#f5f3bb]/80 text-[#412722] shadow-inner'
+                      : 'bg-[#f5f3bb]/80 text-[#412722] hover:bg-[#86ba90]/80'
                   }`}
                   onClick={() => setLanguage('en')}
                 >
@@ -117,8 +117,8 @@ const Dashboard: React.FC = () => {
                   type="button"
                   className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-300 ${
                     language === 'vi'
-                      ? 'bg-[#f5f3bb]/70 text-[#412722] shadow-inner'
-                      : 'bg-[#f5f3bb]/70 text-[#412722] hover:bg-[#86ba90]/70'
+                      ? 'bg-[#f5f3bb]/80 text-[#412722] shadow-inner'
+                      : 'bg-[#f5f3bb]/80 text-[#412722] hover:bg-[#86ba90]/80'
                   }`}
                   onClick={() => setLanguage('vi')}
                 >
@@ -131,7 +131,7 @@ const Dashboard: React.FC = () => {
                   <span className="text-xs sm:text-sm font-medium text-[#412722]">{language === 'en' ? 'Welcome,' : 'Chào mừng,'}</span>
                   <span className="text-xs sm:text-sm text-[#df2935] font-medium truncate max-w-[120px]">{user?.username}</span>
                 </div>
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[#f5f3bb]/70 flex items-center justify-center border-2 border-[#df2935]/70">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[#f5f3bb]/80 flex items-center justify-center border-2 border-[#df2935]/80">
                   <span className="text-[#df2935] font-bold text-sm">{user?.username?.charAt(0)?.toUpperCase()}</span>
                 </div>
               </div>

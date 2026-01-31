@@ -119,9 +119,9 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ transactions }) => {
   };
 
   return (
-    <div className="bg-[#f5f3bb]/30 backdrop-blur-sm rounded-2xl shadow-sm border border-[#f5f3bb]/50 overflow-hidden relative">
+    <div className="bg-[#f5f3bb]/40 backdrop-blur-sm rounded-2xl shadow-sm border border-[#f5f3bb]/60 overflow-hidden relative">
       <div className="absolute inset-0 glass-effect z-0 rounded-2xl opacity-60"></div>
-      <div className="px-6 py-4 bg-[#f5f3bb]/40 border-b border-[#f5f3bb]/50 relative z-10">
+      <div className="px-6 py-4 bg-[#f5f3bb]/50 border-b border-[#f5f3bb]/60 relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#df2935]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -143,7 +143,7 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ transactions }) => {
             <select
               value={selectedMonth}
               onChange={(e) => setSelectedMonth(e.target.value)}
-              className="input-focus block w-36 px-3 py-1.5 text-sm border border-[#dfa06e] rounded-lg shadow-sm focus:ring-[#df2935] focus:border-[#df2935] relative z-10 bg-[#f5f3bb]/70"
+              className="input-focus block w-36 px-3 py-1.5 text-sm border border-[#dfa06e] rounded-lg shadow-sm focus:ring-[#df2935] focus:border-[#df2935] relative z-10 bg-[#f5f3bb]/80"
             >
               <option value="all">{formatMonth('all')}</option>
               {uniqueMonths.map(month => (

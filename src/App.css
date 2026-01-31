@@ -115,41 +115,105 @@
   border-radius: inherit;
 }
 
-/* Currency Tracker Specific Styles */
-.currency-tracker-container {
-  max-width: 100%;
-  margin: 0 auto;
+/* Color Palette */
+.color-income {
+  color: #86ba90; /* xanh lá cây */
 }
 
-.currency-card {
-  background: rgba(245, 243, 187, 0.3); /* f5f3bb/30 */
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
-  border: 1px solid rgba(245, 243, 187, 0.5);
-  overflow: hidden;
-  position: relative;
+.color-expense {
+  color: #df2935; /* đỏ cam */
 }
 
-.currency-table {
-  width: 100%;
-  border-collapse: collapse;
+.color-savings {
+  color: #dfa06e; /* cam */
 }
 
-.currency-table th,
-.currency-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid rgba(223, 41, 53, 0.3); /* df2935/30 */
+.color-total {
+  color: #412722; /* nâu đen */
 }
 
-.best-rate {
-  color: #86ba90 !important; /* 86ba90 - green */
-  font-weight: bold !important;
+.bg-income {
+  background-color: #86ba90;
 }
 
-.worst-rate {
-  color: #df2935 !important; /* df2935 - red */
-  font-weight: bold !important;
+.bg-expense {
+  background-color: #df2935;
+}
+
+.bg-savings {
+  background-color: #dfa06e;
+}
+
+.bg-total {
+  background-color: #412722;
+}
+
+/* Chart colors */
+.chart-income {
+  background-color: #86ba90;
+}
+
+.chart-expense {
+  background-color: #df2935;
+}
+
+.chart-savings {
+  background-color: #dfa06e;
+}
+
+/* Button hover effects */
+.btn-income:hover {
+  background-color: #7aa580;
+}
+
+.btn-expense:hover {
+  background-color: #c4232f;
+}
+
+.btn-savings:hover {
+  background-color: #c48f62;
+}
+
+/* Enhanced color combinations */
+.text-primary {
+  color: #412722; /* nâu đen */
+}
+
+.text-secondary {
+  color: #dfa06e; /* cam */
+}
+
+.text-accent {
+  color: #86ba90; /* xanh lá */
+}
+
+.text-danger {
+  color: #df2935; /* đỏ cam */
+}
+
+.bg-light {
+  background-color: #f5f3bb; /* vàng nhạt */
+}
+
+.border-theme {
+  border-color: #f5f3bb;
+}
+
+/* Gradient for backgrounds */
+.bg-gradient-theme {
+  background: linear-gradient(135deg, #f5f3bb, #86ba90);
+}
+
+.bg-gradient-income {
+  background: linear-gradient(135deg, #a0d4a8, #86ba90);
+}
+
+.bg-gradient-expense {
+  background: linear-gradient(135deg, #e75a5a, #df2935);
+}
+
+.bg-gradient-savings {
+  background: linear-gradient(135deg, #f0c28a, #dfa06e);
 }
 
 /* Color Palette */
