@@ -82,24 +82,26 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
-      <nav className="bg-white shadow-lg shadow-gray-200/50 backdrop-blur-sm bg-opacity-90 sticky top-0 z-10">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-10 shadow-sm border-b border-gray-200/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
-                <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg cursor-pointer" onClick={() => navigate('/dashboard')}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                </div>
+          <div className="flex justify-between h-16 items-center">
+            <div className="flex items-center">
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-md cursor-pointer" onClick={() => navigate('/dashboard')}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
               </div>
+              <h1 className="ml-3 text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                {language === 'en' ? 'Tracker' : 'Trình theo dõi'}
+              </h1>
             </div>
+            
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1">
                 <button
                   type="button"
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-300 ${
                     language === 'en'
                       ? 'bg-indigo-100 text-indigo-700 shadow-inner'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -110,7 +112,7 @@ const Dashboard: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-300 ${
                     language === 'vi'
                       ? 'bg-indigo-100 text-indigo-700 shadow-inner'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -123,16 +125,16 @@ const Dashboard: React.FC = () => {
               
               <div className="flex items-center space-x-3">
                 <div className="flex flex-col items-end">
-                  <span className="text-sm font-medium text-gray-700">{language === 'en' ? 'Welcome,' : 'Chào mừng,'}</span>
-                  <span className="text-sm text-indigo-600 font-medium truncate max-w-[120px]">{user?.username}</span>
+                  <span className="text-xs sm:text-sm font-medium text-gray-700">{language === 'en' ? 'Welcome,' : 'Chào mừng,'}</span>
+                  <span className="text-xs sm:text-sm text-indigo-600 font-medium truncate max-w-[120px]">{user?.username}</span>
                 </div>
-                <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 flex items-center justify-center border-2 border-indigo-200">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 flex items-center justify-center border-2 border-indigo-200">
                   <span className="text-indigo-600 font-bold text-sm">{user?.username?.charAt(0)?.toUpperCase()}</span>
                 </div>
               </div>
               <button
                 onClick={handleLogout}
-                className="btn-animated px-5 py-2.5 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+                className="btn-animated px-4 py-2 text-xs sm:text-sm border border-transparent font-medium rounded-lg text-white bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-sm hover:shadow-md transition-all duration-300"
               >
                 {language === 'en' ? 'Logout' : 'Đăng xuất'}
               </button>
@@ -141,29 +143,38 @@ const Dashboard: React.FC = () => {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 slide-up">
-        <div className="mb-10">
-          <h1 className="text-4xl font-bold text-gray-900">{language === 'en' ? 'Dashboard' : 'Bảng điều khiển'}</h1>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+            {language === 'en' ? 'Dashboard' : 'Bảng điều khiển'}
+          </h1>
+          <p className="text-gray-600 mt-1">
+            {language === 'en' ? 'Welcome back! Here\'s your financial overview.' : 'Chào mừng trở lại! Đây là tổng quan tài chính của bạn.'}
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-7 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <SummaryCard title={language === 'en' ? 'Balance' : 'Số dư'} value={balance} type="balance" />
           <SummaryCard title={language === 'en' ? 'Income' : 'Thu nhập'} value={income} type="income" />
           <SummaryCard title={language === 'en' ? 'Expenses' : 'Chi tiêu'} value={expenses} type="expense" />
         </div>
 
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100 shadow-gray-200/30">
-          <div className="px-7 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-gray-100">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                </svg>
-                {language === 'en' ? 'Recent Transactions' : 'Giao dịch gần đây'}
-              </h2>
+        <div className="bg-white/70 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 shadow-lg shadow-gray-200/30">
+          <div className="px-4 sm:px-6 lg:px-7 py-4 sm:py-5 lg:py-6 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 border-b border-gray-200/30">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center">
+                <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
+                  {language === 'en' ? 'Recent Transactions' : 'Giao dịch gần đây'}
+                </h2>
+              </div>
               <Link
                 to="/transactions"
-                className="btn-animated text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center py-2 px-4 rounded-lg hover:bg-indigo-50 transition-all duration-300"
+                className="mt-2 sm:mt-0 btn-animated text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center py-2 px-4 rounded-lg hover:bg-indigo-50/80 transition-all duration-300 w-fit"
               >
                 {language === 'en' ? 'View all' : 'Xem tất cả'}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -172,7 +183,7 @@ const Dashboard: React.FC = () => {
               </Link>
             </div>
           </div>
-          <div className="p-7">
+          <div className="p-4 sm:p-6 lg:p-7">
             <TransactionList 
               transactions={transactions.slice(0, 5)} 
               onDeleteTransaction={handleDeleteTransaction}
