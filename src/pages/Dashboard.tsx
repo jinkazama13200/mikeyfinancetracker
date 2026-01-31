@@ -85,9 +85,8 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-      <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-10 shadow-sm border-b border-gray-200/50 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent glass-effect z-0"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <nav className="bg-transparent sticky top-0 z-10 shadow-sm border-b border-gray-200/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center">
               <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-md cursor-pointer" onClick={() => navigate('/dashboard')}>
