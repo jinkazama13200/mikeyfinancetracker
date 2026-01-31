@@ -19,11 +19,10 @@ interface CurrencyData {
 const BankRatesTracker: React.FC = () => {
   const { language } = useTranslation();
   const [usdRates, setUsdRates] = useState<CurrencyData | null>(null);
-  const [usdtRates, setUsdtRates] = useState<{ rate: number; lastUpdated: Date } | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Simulate fetching data from Vietnamese banks and OKX
+  // Simulate fetching data from Vietnamese banks
   useEffect(() => {
     fetchCurrencyRates();
     
@@ -83,57 +82,7 @@ const BankRatesTracker: React.FC = () => {
         banks: banksData
       };
 
-      // Fetch USDT rate from OKX API - using correct endpoint
-      let usdtRate = 23490; // fallback
-      try {
-        const usdtResponse = await fetch('https://www.okx.com/api/v5/market/ticker?instId=USDT-KRW'); // Get USDT-KRW first
-        if (usdtResponse.ok) {
-          const usdtData = await usdtResponse.json();
-          if (usdtData && usdtData.data && usdtData.data[0] && usdtData.data[0].last) {
-            const usdtKrwRate = parseFloat(usdtData.data[0].last);
-            
-            // Then get KRW-VND rate to calculate USDT-VND
-            const vndResponse = await fetch('https://api.exchangerate-api.com/v4/latest/KRW');
-            if (vndResponse.ok) {
-              const vndData = await vndResponse.json();
-              if (vndData.rates && vndData.rates.VND) {
-                usdtRate = usdtKrwRate * vndData.rates.VND;
-              }
-            }
-          }
-        }
-      } catch (usdtErr) {
-        console.error('OKX USDT rate fetch failed:', usdtErr);
-        // If OKX API fails, try alternative source
-        try {
-          const altResponse = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=USDTUSDC'); // USDT to USDC
-          if (altResponse.ok) {
-            const altData = await altResponse.json();
-            if (altData.price) {
-              const usdtUsdcRate = parseFloat(altData.price);
-              
-              // Get USD-VND rate to calculate USDT-VND
-              const usdVndResponse = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-              if (usdVndResponse.ok) {
-                const usdVndData = await usdVndResponse.json();
-                if (usdVndData.rates && usdVndData.rates.VND) {
-                  usdtRate = usdtUsdcRate * usdVndData.rates.VND;
-                }
-              }
-            }
-          }
-        } catch (altErr) {
-          console.error('Alternative USDT rate fetch failed:', altErr);
-        }
-      }
-
-      const usdtRatesData = {
-        rate: usdtRate,
-        lastUpdated: new Date()
-      };
-
       setUsdRates(usdRatesData);
-      setUsdtRates(usdtRatesData);
     } catch (err) {
       setError(language === 'en' 
         ? 'Failed to fetch currency rates' 
@@ -157,7 +106,6 @@ const BankRatesTracker: React.FC = () => {
       };
 
       setUsdRates(fallbackUsdRates);
-      setUsdtRates({ rate: 23490, lastUpdated: new Date() });
     } finally {
       setIsLoading(false);
     }
@@ -188,7 +136,7 @@ const BankRatesTracker: React.FC = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <h3 className="text-lg font-semibold text-gray-800">
-              {language === 'en' ? 'Bank & Exchange Rates' : 'Tỷ giá ngân hàng & sàn'}
+              {language === 'en' ? 'Bank Rates Tracker' : 'Theo dõi tỷ giá ngân hàng'}
             </h3>
           </div>
           <div className="flex items-center space-x-2">
@@ -209,11 +157,11 @@ const BankRatesTracker: React.FC = () => {
           </div>
         )}
         
-        {isLoading && !(usdRates || usdtRates) ? (
+        {isLoading && !usdRates ? (
           <div className="flex flex-col items-center justify-center py-8">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600 mb-3"></div>
             <p className="text-gray-600 text-sm">
-              {language === 'en' ? 'Fetching live bank and exchange rates...' : 'Đang lấy tỷ giá ngân hàng và sàn...'}
+              {language === 'en' ? 'Fetching live bank rates...' : 'Đang lấy tỷ giá ngân hàng...'}
             </p>
           </div>
         ) : (
@@ -286,38 +234,6 @@ const BankRatesTracker: React.FC = () => {
                         ))}
                       </tbody>
                     </table>
-                  </div>
-                </div>
-              )}
-            </div>
-            
-            {/* USDT Rates Section */}
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="text-md font-semibold text-gray-800 flex items-center">
-                  <span className="h-3 w-3 rounded-full bg-purple-500 mr-2"></span>
-                  USDT/VND - OKX
-                </h4>
-                {usdtRates && (
-                  <span className="text-xs text-gray-500">
-                    {language === 'en' ? 'Updated:' : 'Cập nhật:'} {formatTime(usdtRates.lastUpdated)}
-                  </span>
-                )}
-              </div>
-              
-              {usdtRates && (
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl border border-purple-200/50">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div className="text-sm text-gray-600">{language === 'en' ? 'Current Rate' : 'Tỷ giá hiện tại'}</div>
-                      <div className="text-2xl font-bold text-gray-900 mt-1">
-                        {formatCurrency(usdtRates.rate)} ₫
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm text-gray-600">{language === 'en' ? 'Exchange' : 'Sàn giao dịch'}</div>
-                      <div className="text-sm font-semibold text-indigo-600 mt-1">OKX</div>
-                    </div>
                   </div>
                 </div>
               )}
