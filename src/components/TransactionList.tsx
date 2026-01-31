@@ -51,11 +51,11 @@ const TransactionList: React.FC<TransactionListProps> = ({
   };
 
   return (
-    <div className="overflow-x-auto bg-white/30 backdrop-blur-sm relative overflow-hidden rounded-xl border border-white/50">
+    <div className="overflow-x-auto bg-white/30 backdrop-blur-sm relative overflow-hidden rounded-xl border border-[#f5f3bb]/50">
       <div className="absolute inset-0 glass-effect z-0 opacity-60"></div>
       {/* Desktop Table */}
       <div className="hidden md:block relative z-10">
-        <table className="min-w-full divide-y divide-gray-200">
+        <table className="min-w-full divide-y divide-[#df2935]/30">
           <thead className="bg-gray-50">
             <tr>
               <th

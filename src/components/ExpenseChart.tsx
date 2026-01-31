@@ -121,21 +121,21 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ transactions }) => {
   return (
     <div className="bg-white/30 backdrop-blur-sm rounded-2xl shadow-sm border border-white/50 overflow-hidden relative">
       <div className="absolute inset-0 glass-effect z-0 rounded-2xl opacity-60"></div>
-      <div className="px-6 py-4 bg-gradient-to-r from-indigo-50/30 to-purple-50/30 border-b border-white/30 relative z-10">
+      <div className="px-6 py-4 bg-gradient-to-r from-[#f5f3bb]/40 to-[#86ba90]/40 border-b border-[#f5f3bb]/50 relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#df2935]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
-            <h3 className="text-lg font-semibold text-gray-800 relative z-10">
+            <h3 className="text-lg font-semibold text-[#412722] relative z-10">
               {language === 'en' ? 'Expense Analysis' : 'Phân tích chi tiêu'}
             </h3>
           </div>
           
           <div className="mt-2 sm:mt-0 flex items-center space-x-3 relative z-10">
-            <div className="text-sm font-medium text-gray-700">
+            <div className="text-sm font-medium text-[#412722]">
               {language === 'en' ? 'Total:' : 'Tổng cộng:'} 
-              <span className="font-bold text-red-600 ml-1">
+              <span className="font-bold text-[#df2935] ml-1">
                 {totalExpenses.toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} VND
               </span>
             </div>
@@ -143,7 +143,7 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ transactions }) => {
             <select
               value={selectedMonth}
               onChange={(e) => setSelectedMonth(e.target.value)}
-              className="input-focus block w-36 px-3 py-1.5 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 relative z-10"
+              className="input-focus block w-36 px-3 py-1.5 text-sm border border-[#dfa06e] rounded-lg shadow-sm focus:ring-[#df2935] focus:border-[#df2935] relative z-10 bg-white/70"
             >
               <option value="all">{formatMonth('all')}</option>
               {uniqueMonths.map(month => (

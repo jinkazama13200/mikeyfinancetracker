@@ -100,12 +100,12 @@
 
 /* Glass Effect */
 .glass-effect {
-  background: rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, rgba(217, 41, 53, 0.3), rgba(134, 186, 144, 0.3));
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(245, 243, 187, 0.4);
   position: absolute;
   top: 0;
   left: 0;
@@ -113,6 +113,65 @@
   bottom: 0;
   z-index: 0;
   border-radius: inherit;
+}
+
+/* Color Palette */
+.color-income {
+  color: #86ba90; /* xanh lá cây */
+}
+
+.color-expense {
+  color: #df2935; /* đỏ cam */
+}
+
+.color-savings {
+  color: #dfa06e; /* cam */
+}
+
+.color-total {
+  color: #412722; /* nâu đen */
+}
+
+.bg-income {
+  background: linear-gradient(135deg, #86ba90, #a0d4a8);
+}
+
+.bg-expense {
+  background: linear-gradient(135deg, #df2935, #e75a5a);
+}
+
+.bg-savings {
+  background: linear-gradient(135deg, #dfa06e, #f0c28a);
+}
+
+.bg-total {
+  background: linear-gradient(135deg, #412722, #654321);
+}
+
+/* Chart colors */
+.chart-income {
+  background: linear-gradient(135deg, #86ba90, #a0d4a8);
+}
+
+.chart-expense {
+  background: linear-gradient(135deg, #df2935, #e75a5a);
+}
+
+.chart-savings {
+  background: linear-gradient(135deg, #dfa06e, #f0c28a);
+}
+
+/* Button hover effects */
+.btn-income:hover {
+  background: linear-gradient(135deg, #7aa580, #86ba90);
+}
+
+.btn-expense:hover {
+  background: linear-gradient(135deg, #c4232f, #df2935);
+}
+
+.btn-savings:hover {
+  background: linear-gradient(135deg, #c48f62, #dfa06e);
 }
 
 /* Card hover animation */

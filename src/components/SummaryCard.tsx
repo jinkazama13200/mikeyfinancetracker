@@ -49,14 +49,30 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
   };
 
   return (
-    <div className="bg-white/30 backdrop-blur-sm rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-sm card-hover border border-white/50 transition-all duration-300 relative overflow-hidden">
+    <div className={`bg-white/30 backdrop-blur-sm rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-sm card-hover border border-white/50 transition-all duration-300 relative overflow-hidden ${
+      type === 'income' ? 'border-[#86ba90]/50' : 
+      type === 'expense' ? 'border-[#df2935]/50' : 
+      type === 'balance' ? 'border-[#dfa06e]/50' : 'border-[#412722]/50'
+    }`}>
       <div className="absolute inset-0 glass-effect z-0 rounded-xl opacity-70"></div>
       <div className="relative z-10">
         <div className="flex items-center justify-between">
-          <p className="text-xs font-medium text-gray-600 truncate">{getTitle()}</p>
-          <span className="text-base sm:text-lg">{icon}</span>
+          <p className={`text-xs font-medium ${
+            type === 'income' ? 'text-[#86ba90]' : 
+            type === 'expense' ? 'text-[#df2935]' : 
+            type === 'balance' ? 'text-[#dfa06e]' : 'text-[#412722]'
+          } truncate`}>{getTitle()}</p>
+          <span className={`text-base sm:text-lg ${
+            type === 'income' ? 'text-[#86ba90]' : 
+            type === 'expense' ? 'text-[#df2935]' : 
+            type === 'balance' ? 'text-[#dfa06e]' : 'text-[#412722]'
+          }`}>{icon}</span>
         </div>
-        <p className={`mt-1 sm:mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold ${textColor} transition-all duration-500 break-words`}>
+        <p className={`mt-1 sm:mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold ${
+          type === 'income' ? 'text-[#86ba90]' : 
+          type === 'expense' ? 'text-[#df2935]' : 
+          type === 'balance' ? 'text-[#dfa06e]' : 'text-[#412722]'
+        } transition-all duration-500 break-words`}>
           {type === 'income' ? '+' : type === 'expense' ? '-' : value < 0 ? '-' : ''}
           {Math.abs(value).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} {language === 'vi' ? 'VND' : '$'}
         </p>
