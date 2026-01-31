@@ -26,20 +26,6 @@ export interface User {
   createdAt?: string;
 }
 
-export interface BankAccount {
-  id: string;
-  name: string;
-  accountNumber: string;
-  balance: number;
-  currency: string;
-  bankCode?: string;
-  bankLogo?: string;
-  isActive: boolean;
-  userId: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 // Tạo axios instance với cấu hình mặc định
 const apiClient = axios.create({
   baseURL: MOCK_API_BASE_URL,
@@ -173,85 +159,6 @@ export const userApi = {
       await apiClient.delete(`/users/${id}`);
     } catch (error) {
       console.error(`Error deleting user with id ${id}:`, error);
-      throw error;
-    }
-  }
-};
-
-// Bank Account API functions
-export const bankAccountApi = {
-  // Lấy tất cả tài khoản ngân hàng
-  getAllAccounts: async (): Promise<BankAccount[]> => {
-    try {
-      const response = await apiClient.get<BankAccount[]>('/bankAccounts');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching bank accounts:', error);
-      throw error;
-    }
-  },
-
-  // Lấy tài khoản ngân hàng theo ID
-  getAccountById: async (id: string): Promise<BankAccount> => {
-    try {
-      const response = await apiClient.get<BankAccount>(`/bankAccounts/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching bank account with id ${id}:`, error);
-      throw error;
-    }
-  },
-
-  // Lấy tài khoản ngân hàng theo userId
-  getAccountsByUserId: async (userId: string): Promise<BankAccount[]> => {
-    try {
-      const response = await apiClient.get<BankAccount[]>(`/bankAccounts`, {
-        params: {
-          userId: userId
-        }
-      });
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching bank accounts for user ${userId}:`, error);
-      throw error;
-    }
-  },
-
-  // Tạo tài khoản ngân hàng mới
-  createAccount: async (account: Omit<BankAccount, 'id' | 'createdAt' | 'updatedAt'>): Promise<BankAccount> => {
-    try {
-      const response = await apiClient.post<BankAccount>('/bankAccounts', {
-        ...account,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error creating bank account:', error);
-      throw error;
-    }
-  },
-
-  // Cập nhật tài khoản ngân hàng
-  updateAccount: async (id: string, account: Partial<BankAccount>): Promise<BankAccount> => {
-    try {
-      const response = await apiClient.put<BankAccount>(`/bankAccounts/${id}`, {
-        ...account,
-        updatedAt: new Date().toISOString()
-      });
-      return response.data;
-    } catch (error) {
-      console.error(`Error updating bank account with id ${id}:`, error);
-      throw error;
-    }
-  },
-
-  // Xóa tài khoản ngân hàng
-  deleteAccount: async (id: string): Promise<void> => {
-    try {
-      await apiClient.delete(`/bankAccounts/${id}`);
-    } catch (error) {
-      console.error(`Error deleting bank account with id ${id}:`, error);
       throw error;
     }
   }

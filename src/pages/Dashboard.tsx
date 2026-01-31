@@ -172,26 +172,15 @@ const Dashboard: React.FC = () => {
                   {language === 'en' ? 'Recent Transactions' : 'Giao dịch gần đây'}
                 </h2>
               </div>
-              <div className="flex flex-col sm:flex-row sm:space-x-3 space-y-2 sm:space-y-0">
-                <Link
-                  to="/bank-accounts"
-                  className="btn-animated text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center py-2 px-4 rounded-lg hover:bg-indigo-50/80 transition-all duration-300 w-fit"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
-                  {language === 'en' ? 'Bank Accounts' : 'Tài khoản ngân hàng'}
-                </Link>
-                <Link
-                  to="/transactions"
-                  className="btn-animated text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center py-2 px-4 rounded-lg hover:bg-indigo-50/80 transition-all duration-300 w-fit"
-                >
-                  {language === 'en' ? 'View all' : 'Xem tất cả'}
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
+              <Link
+                to="/transactions"
+                className="btn-animated text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center py-2 px-4 rounded-lg hover:bg-indigo-50/80 transition-all duration-300 w-fit"
+              >
+                {language === 'en' ? 'View all' : 'Xem tất cả'}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
           </div>
           <div className="p-4 sm:p-6 lg:p-7">
