@@ -100,7 +100,7 @@
 
 /* Glass Effect */
 .glass-effect {
-  background: linear-gradient(135deg, rgba(217, 41, 53, 0.3), rgba(134, 186, 144, 0.3));
+  background: rgba(245, 243, 187, 0.4); /* f5f3bb */
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(8px);
@@ -133,45 +133,45 @@
 }
 
 .bg-income {
-  background: linear-gradient(135deg, #86ba90, #a0d4a8);
+  background-color: #86ba90;
 }
 
 .bg-expense {
-  background: linear-gradient(135deg, #df2935, #e75a5a);
+  background-color: #df2935;
 }
 
 .bg-savings {
-  background: linear-gradient(135deg, #dfa06e, #f0c28a);
+  background-color: #dfa06e;
 }
 
 .bg-total {
-  background: linear-gradient(135deg, #412722, #654321);
+  background-color: #412722;
 }
 
 /* Chart colors */
 .chart-income {
-  background: linear-gradient(135deg, #86ba90, #a0d4a8);
+  background-color: #86ba90;
 }
 
 .chart-expense {
-  background: linear-gradient(135deg, #df2935, #e75a5a);
+  background-color: #df2935;
 }
 
 .chart-savings {
-  background: linear-gradient(135deg, #dfa06e, #f0c28a);
+  background-color: #dfa06e;
 }
 
 /* Button hover effects */
 .btn-income:hover {
-  background: linear-gradient(135deg, #7aa580, #86ba90);
+  background-color: #7aa580;
 }
 
 .btn-expense:hover {
-  background: linear-gradient(135deg, #c4232f, #df2935);
+  background-color: #c4232f;
 }
 
 .btn-savings:hover {
-  background: linear-gradient(135deg, #c48f62, #dfa06e);
+  background-color: #c48f62;
 }
 
 /* Card hover animation */

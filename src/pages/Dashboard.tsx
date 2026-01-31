@@ -85,17 +85,17 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-      <nav className="bg-white/30 backdrop-blur-sm sticky top-0 z-10 shadow-sm border-b border-[#f5f3bb]/50 relative overflow-hidden">
+      <nav className="bg-[#f5f3bb]/30 backdrop-blur-sm sticky top-0 z-10 shadow-sm border-b border-[#f5f3bb]/50 relative overflow-hidden">
         <div className="absolute inset-0 glass-effect z-0 opacity-50"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center">
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-[#df2935] to-[#86ba90] flex items-center justify-center shadow-md cursor-pointer" onClick={() => navigate('/dashboard')}>
+              <div className="h-10 w-10 rounded-xl bg-[#df2935] flex items-center justify-center shadow-md cursor-pointer" onClick={() => navigate('/dashboard')}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
               </div>
-              <h1 className="ml-3 text-xl font-bold bg-gradient-to-r from-[#df2935] to-[#86ba90] bg-clip-text text-transparent">
+              <h1 className="ml-3 text-xl font-bold text-[#df2935]">
                 {language === 'en' ? 'Tracker' : 'Trình theo dõi'}
               </h1>
             </div>
@@ -131,13 +131,13 @@ const Dashboard: React.FC = () => {
                   <span className="text-xs sm:text-sm font-medium text-[#412722]">{language === 'en' ? 'Welcome,' : 'Chào mừng,'}</span>
                   <span className="text-xs sm:text-sm text-[#df2935] font-medium truncate max-w-[120px]">{user?.username}</span>
                 </div>
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gradient-to-r from-[#f5f3bb]/70 to-[#86ba90]/70 flex items-center justify-center border-2 border-[#df2935]/70">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[#f5f3bb]/70 flex items-center justify-center border-2 border-[#df2935]/70">
                   <span className="text-[#df2935] font-bold text-sm">{user?.username?.charAt(0)?.toUpperCase()}</span>
                 </div>
               </div>
               <button
                 onClick={handleLogout}
-                className="btn-animated px-4 py-2 text-xs sm:text-sm border border-transparent font-medium rounded-lg text-white bg-gradient-to-r from-[#df2935] to-[#dfa06e] hover:from-[#c4232f] hover:to-[#c48f62] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#df2935] shadow-sm hover:shadow-md transition-all duration-300"
+                className="btn-animated px-4 py-2 text-xs sm:text-sm border border-transparent font-medium rounded-lg text-white bg-[#df2935] hover:bg-[#c4232f] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#df2935] shadow-sm hover:shadow-md transition-all duration-300"
               >
                 {language === 'en' ? 'Logout' : 'Đăng xuất'}
               </button>

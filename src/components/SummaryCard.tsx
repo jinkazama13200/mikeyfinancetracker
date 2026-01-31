@@ -49,11 +49,11 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
   };
 
   return (
-    <div className={`bg-white/30 backdrop-blur-sm rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-sm card-hover border border-white/50 transition-all duration-300 relative overflow-hidden ${
+    <div className={`bg-[#f5f3bb]/30 backdrop-blur-sm rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-sm card-hover border ${
       type === 'income' ? 'border-[#86ba90]/50' : 
       type === 'expense' ? 'border-[#df2935]/50' : 
       type === 'balance' ? 'border-[#dfa06e]/50' : 'border-[#412722]/50'
-    }`}>
+    } transition-all duration-300 relative overflow-hidden`}>
       <div className="absolute inset-0 glass-effect z-0 rounded-xl opacity-70"></div>
       <div className="relative z-10">
         <div className="flex items-center justify-between">
