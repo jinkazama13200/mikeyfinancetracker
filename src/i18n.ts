@@ -258,9 +258,9 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     t
   };
 
-  return (
-    <I18nContext.Provider value={value}>
-      {children}
-    </I18nContext.Provider>
+  return React.createElement(
+    I18nContext.Provider,
+    { value: value },
+    children
   );
 };
