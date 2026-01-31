@@ -83,24 +83,43 @@ const BankRatesTracker: React.FC = () => {
         banks: banksData
       };
 
-      // Fetch USDT rate from OKX API
+      // Fetch USDT rate from OKX API - using correct endpoint
       let usdtRate = 23490; // fallback
       try {
-        const usdtResponse = await fetch('https://www.okx.com/api/v5/market/ticker?instId=USDT-VND');
+        const usdtResponse = await fetch('https://www.okx.com/api/v5/market/ticker?instId=USDT-KRW'); // Get USDT-KRW first
         if (usdtResponse.ok) {
           const usdtData = await usdtResponse.json();
           if (usdtData && usdtData.data && usdtData.data[0] && usdtData.data[0].last) {
-            usdtRate = parseFloat(usdtData.data[0].last);
+            const usdtKrwRate = parseFloat(usdtData.data[0].last);
+            
+            // Then get KRW-VND rate to calculate USDT-VND
+            const vndResponse = await fetch('https://api.exchangerate-api.com/v4/latest/KRW');
+            if (vndResponse.ok) {
+              const vndData = await vndResponse.json();
+              if (vndData.rates && vndData.rates.VND) {
+                usdtRate = usdtKrwRate * vndData.rates.VND;
+              }
+            }
           }
         }
       } catch (usdtErr) {
+        console.error('OKX USDT rate fetch failed:', usdtErr);
         // If OKX API fails, try alternative source
         try {
-          const altResponse = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=USDTVND');
+          const altResponse = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=USDTUSDC'); // USDT to USDC
           if (altResponse.ok) {
             const altData = await altResponse.json();
             if (altData.price) {
-              usdtRate = parseFloat(altData.price);
+              const usdtUsdcRate = parseFloat(altData.price);
+              
+              // Get USD-VND rate to calculate USDT-VND
+              const usdVndResponse = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+              if (usdVndResponse.ok) {
+                const usdVndData = await usdVndResponse.json();
+                if (usdVndData.rates && usdVndData.rates.VND) {
+                  usdtRate = usdtUsdcRate * usdVndData.rates.VND;
+                }
+              }
             }
           }
         } catch (altErr) {
