@@ -6,6 +6,7 @@ import TransactionList from '../components/TransactionList';
 import SummaryCard from '../components/SummaryCard';
 import ExpenseChart from '../components/ExpenseChart';
 import BankRatesTracker from '../components/BankRatesTracker';
+import CurrencyTracker from '../components/CurrencyTracker';
 import { transactionApi, Transaction } from '../services/api';
 
 const Dashboard: React.FC = () => {
@@ -203,6 +204,10 @@ const Dashboard: React.FC = () => {
 
         <div className="mb-6">
           <BankRatesTracker />
+        </div>
+
+        <div className="mb-6">
+          <CurrencyTracker />
         </div>
       </main>
     </div>

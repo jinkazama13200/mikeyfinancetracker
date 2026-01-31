@@ -115,6 +115,43 @@
   border-radius: inherit;
 }
 
+/* Currency Tracker Specific Styles */
+.currency-tracker-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.currency-card {
+  background: rgba(245, 243, 187, 0.3); /* f5f3bb/30 */
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid rgba(245, 243, 187, 0.5);
+  overflow: hidden;
+  position: relative;
+}
+
+.currency-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.currency-table th,
+.currency-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(223, 41, 53, 0.3); /* df2935/30 */
+}
+
+.best-rate {
+  color: #86ba90 !important; /* 86ba90 - green */
+  font-weight: bold !important;
+}
+
+.worst-rate {
+  color: #df2935 !important; /* df2935 - red */
+  font-weight: bold !important;
+}
+
 /* Color Palette */
 .color-income {
   color: #86ba90; /* xanh lá cây */
