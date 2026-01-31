@@ -100,27 +100,30 @@ const Transactions: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
-      <nav className="bg-white shadow-lg shadow-gray-200/50 backdrop-blur-sm bg-opacity-90 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
-                <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg cursor-pointer" onClick={() => navigate('/dashboard')}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                </div>
+    <div className="min-h-screen bg-[var(--bg-primary)]">
+      <nav className="backdrop-blur-sm sticky top-0 z-10 shadow-sm border-b border-[var(--border-color)] relative overflow-hidden">
+        <div className="absolute inset-0 glass-effect z-0 opacity-50"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex justify-between h-16 items-center">
+            <div className="flex items-center">
+              <div className="h-10 w-10 rounded-xl bg-[var(--expense-color)] flex items-center justify-center shadow-md cursor-pointer" onClick={() => navigate('/dashboard')}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
               </div>
+              <h1 className="ml-3 text-xl font-bold text-[var(--text-primary)]">
+                {language === 'en' ? 'Transactions' : 'Giao dịch'}
+              </h1>
             </div>
+            
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1">
                 <button
                   type="button"
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-300 ${
                     language === 'en'
-                      ? 'bg-indigo-100 text-indigo-700 shadow-inner'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-[var(--bg-card-lighter)] text-[var(--text-primary)] shadow-inner'
+                      : 'bg-[var(--bg-card-lighter)] text-[var(--text-primary)] hover:bg-[var(--income-color)]/80'
                   }`}
                   onClick={() => setLanguage('en')}
                 >
@@ -128,10 +131,10 @@ const Transactions: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-300 ${
                     language === 'vi'
-                      ? 'bg-indigo-100 text-indigo-700 shadow-inner'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-[var(--bg-card-lighter)] text-[var(--text-primary)] shadow-inner'
+                      : 'bg-[var(--bg-card-lighter)] text-[var(--text-primary)] hover:bg-[var(--income-color)]/80'
                   }`}
                   onClick={() => setLanguage('vi')}
                 >
@@ -141,16 +144,16 @@ const Transactions: React.FC = () => {
               
               <div className="flex items-center space-x-3">
                 <div className="flex flex-col items-end">
-                  <span className="text-sm font-medium text-gray-700">{language === 'en' ? 'Welcome,' : 'Chào mừng,'}</span>
-                  <span className="text-sm text-indigo-600 font-medium truncate max-w-[120px]">{user?.username}</span>
+                  <span className="text-xs sm:text-sm font-medium text-[var(--text-primary)]">{language === 'en' ? 'Welcome,' : 'Chào mừng,'}</span>
+                  <span className="text-xs sm:text-sm color-expense font-medium truncate max-w-[120px]">{user?.username}</span>
                 </div>
-                <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 flex items-center justify-center border-2 border-indigo-200">
-                  <span className="text-indigo-600 font-bold text-sm">{user?.username?.charAt(0)?.toUpperCase()}</span>
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[var(--bg-card-lighter)] flex items-center justify-center border-2 border-[var(--expense-color)]/80">
+                  <span className="color-expense font-bold text-sm">{user?.username?.charAt(0)?.toUpperCase()}</span>
                 </div>
               </div>
               <button
                 onClick={handleLogout}
-                className="btn-animated px-5 py-2.5 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+                className="btn-animated px-4 py-2 text-xs sm:text-sm border border-transparent font-medium rounded-lg text-white bg-[var(--expense-color)] hover:bg-[var(--expense-color)]/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--expense-color)] shadow-sm hover:shadow-md transition-all duration-300"
               >
                 {language === 'en' ? 'Logout' : 'Đăng xuất'}
               </button>
@@ -159,13 +162,13 @@ const Transactions: React.FC = () => {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 slide-up">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-10">
           <div className="flex justify-between items-center">
-            <h1 className="text-4xl font-bold text-gray-900">{language === 'en' ? 'Transactions' : 'Giao dịch'}</h1>
+            <h1 className="text-4xl font-bold text-[var(--text-primary)]">{language === 'en' ? 'Transactions' : 'Giao dịch'}</h1>
             <button
               onClick={() => setShowForm(!showForm)}
-              className="btn-animated bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-7 py-3.5 rounded-xl hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-0.5 flex items-center"
+              className="btn-animated bg-[var(--income-color)] text-white px-7 py-3.5 rounded-xl hover:bg-[var(--income-color)]/90 focus:outline-none focus:ring-2 focus:ring-[var(--income-color)] shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-0.5 flex items-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
@@ -176,9 +179,9 @@ const Transactions: React.FC = () => {
         </div>
 
         {showForm && (
-          <div className="mb-10 bg-white shadow-xl rounded-2xl p-7 border border-gray-100 shadow-gray-200/30 card-hover">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+          <div className="mb-10 backdrop-blur-sm rounded-2xl p-7 border border-[var(--border-color)] card-hover bg-[var(--bg-card-lighter)]">
+            <h2 className="text-2xl font-semibold text-[var(--text-primary)] mb-6 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 color-income" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
               </svg>
               {language === 'en' ? 'Add New Transaction' : 'Thêm giao dịch mới'}
@@ -187,10 +190,10 @@ const Transactions: React.FC = () => {
           </div>
         )}
 
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100 shadow-gray-200/30">
-          <div className="px-7 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-gray-100">
-            <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+        <div className="backdrop-blur-sm rounded-2xl overflow-hidden border border-[var(--border-color)] bg-[var(--bg-card-lighter)]">
+          <div className="px-7 py-6 border-b border-[var(--border-color)] bg-[var(--bg-card-lightest)]">
+            <h2 className="text-xl font-semibold text-[var(--text-primary)] flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 color-income" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
               </svg>
               {language === 'en' ? 'All Transactions' : 'Tất cả giao dịch'}
