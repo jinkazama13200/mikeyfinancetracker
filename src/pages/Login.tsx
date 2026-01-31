@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useTranslation } from '../i18n';
 
 const Login: React.FC = () => {
-  const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -19,7 +17,7 @@ const Login: React.FC = () => {
       if (success) {
         navigate('/dashboard');
       } else {
-        setError(t('invalidCredentials'));
+        setError('Invalid credentials. Please try again.');
       }
     } catch (err) {
       setError('An error occurred during login.');
@@ -31,10 +29,10 @@ const Login: React.FC = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {t('financeTracker')}
+            Personal Finance Tracker
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            {t('signIn')}
+            Sign in to your account
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -45,27 +43,27 @@ const Login: React.FC = () => {
           )}
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="username" className="sr-only">{t('username')}</label>
+              <label htmlFor="username" className="sr-only">Username</label>
               <input
                 id="username"
                 name="username"
                 type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder={t('username')}
+                placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">{t('password')}</label>
+              <label htmlFor="password" className="sr-only">Password</label>
               <input
                 id="password"
                 name="password"
                 type="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder={t('password')}
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -77,13 +75,13 @@ const Login: React.FC = () => {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              {t('signIn')}
+              Sign in
             </button>
           </div>
         </form>
         <div className="text-center">
           <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
-            {t('dontHaveAccount')} {t('registerHere')}
+            Don't have an account? Register here
           </Link>
         </div>
       </div>

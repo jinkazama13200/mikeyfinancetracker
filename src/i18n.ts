@@ -215,7 +215,7 @@ export const useTranslation = (): I18nContextType => {
 
 // Provider component
 export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(() => {
+  const [language, setLanguageState] = useState<Language>(() => {
     // Get saved language preference or default to 'en'
     const savedLang = localStorage.getItem('language');
     return (savedLang === 'en' || savedLang === 'vi') ? savedLang as Language : 'en';
@@ -226,6 +226,25 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     document.documentElement.lang = language;
     localStorage.setItem('language', language);
   }, [language]);
+
+  // Handle language changes from other tabs/windows
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'language' && e.newValue) {
+        if (e.newValue === 'en' || e.newValue === 'vi') {
+          setLanguageState(e.newValue as Language);
+        }
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  // Wrapper function to update language state and notify other tabs
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+  };
 
   // Translation function
   const t = (key: string, options?: { defaultValue?: string }): string => {
