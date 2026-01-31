@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../i18n';
 import TransactionList from '../components/TransactionList';
 import SummaryCard from '../components/SummaryCard';
+import ExpenseChart from '../components/ExpenseChart';
 import { transactionApi, Transaction } from '../services/api';
 
 const Dashboard: React.FC = () => {
@@ -159,37 +160,58 @@ const Dashboard: React.FC = () => {
           <SummaryCard title={language === 'en' ? 'Expenses' : 'Chi tiêu'} value={expenses} type="expense" />
         </div>
 
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 shadow-lg shadow-gray-200/30">
-          <div className="px-4 sm:px-6 lg:px-7 py-4 sm:py-5 lg:py-6 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 border-b border-gray-200/30">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center">
-                <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center mr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 shadow-lg shadow-gray-200/30">
+            <div className="px-4 sm:px-6 lg:px-7 py-4 sm:py-5 lg:py-6 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 border-b border-gray-200/30">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center">
+                  <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
+                    {language === 'en' ? 'Recent Transactions' : 'Giao dịch gần đây'}
+                  </h2>
                 </div>
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
-                  {language === 'en' ? 'Recent Transactions' : 'Giao dịch gần đây'}
-                </h2>
+                <Link
+                  to="/transactions"
+                  className="mt-2 sm:mt-0 btn-animated text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center py-2 px-4 rounded-lg hover:bg-indigo-50/80 transition-all duration-300 w-fit"
+                >
+                  {language === 'en' ? 'View all' : 'Xem tất cả'}
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
               </div>
-              <Link
-                to="/transactions"
-                className="btn-animated text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center py-2 px-4 rounded-lg hover:bg-indigo-50/80 transition-all duration-300 w-fit"
-              >
-                {language === 'en' ? 'View all' : 'Xem tất cả'}
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
+            </div>
+            <div className="p-4 sm:p-6 lg:p-7">
+              <TransactionList 
+                transactions={transactions.slice(0, 5)} 
+                onDeleteTransaction={handleDeleteTransaction}
+                onUpdateTransaction={handleUpdateTransaction}
+              />
             </div>
           </div>
-          <div className="p-4 sm:p-6 lg:p-7">
-            <TransactionList 
-              transactions={transactions.slice(0, 5)} 
-              onDeleteTransaction={handleDeleteTransaction}
-              onUpdateTransaction={handleUpdateTransaction}
-            />
-          </div>
+
+          <ExpenseChart 
+            expenses={transactions
+              .filter(t => t.type === 'expense')
+              .reduce((categories, transaction) => {
+                const existingCategory = categories.find(cat => cat.name === transaction.description);
+                if (existingCategory) {
+                  existingCategory.value += transaction.amount;
+                } else {
+                  categories.push({
+                    name: transaction.description,
+                    value: transaction.amount,
+                    color: `#${Math.floor(Math.random()*16777215).toString(16)}`
+                  });
+                }
+                return categories;
+              }, [] as { name: string; value: number; color: string }[])
+            }
+          />
         </div>
       </main>
     </div>
