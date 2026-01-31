@@ -47,7 +47,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 fade-in">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4">
         <div className="space-y-2">
           <label htmlFor="type" className="block text-sm font-medium text-gray-700">
             {language === 'en' ? 'Type' : 'Loại giao dịch'}
@@ -113,7 +113,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
           />
         </div>
         
-        <div className="space-y-2 md:col-span-2">
+        <div className="space-y-2">
           <label htmlFor="description" className="block text-sm font-medium text-gray-700">
             {language === 'en' ? 'Description' : 'Mô tả'}
           </label>

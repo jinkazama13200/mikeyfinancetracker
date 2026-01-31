@@ -36,3 +36,57 @@
     transform: rotate(360deg);
   }
 }
+
+/* Additional global styles for mobile responsiveness */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .container {
+    padding: 0 10px;
+  }
+  
+  .card {
+    margin: 10px 0;
+  }
+  
+  /* Ensure proper spacing on mobile */
+  .mb-10 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .mt-5 {
+    margin-top: 1.25rem;
+  }
+  
+  .p-7 {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 13px;
+  }
+  
+  .text-base {
+    font-size: 0.875rem;
+  }
+  
+  .text-lg {
+    font-size: 0.95rem;
+  }
+  
+  .text-xl {
+    font-size: 1rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.125rem;
+  }
+  
+  .text-4xl {
+    font-size: 1.25rem;
+  }
+}

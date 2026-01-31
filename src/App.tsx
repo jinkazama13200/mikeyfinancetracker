@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
 import './App.css';
+import './responsive.css';
 
 function App() {
   const [key, setKey] = useState(0); // State to force re-render when language changes
