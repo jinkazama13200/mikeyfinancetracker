@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { useTranslation } from '../i18n';
+
+interface Transaction {
+  id: string;
+  type: 'income' | 'expense';
+  amount: number;
+  description: string;
+  date: string;
+  currency?: string;
+  userId: string;
+  createdAt: string;
+}
 
 interface ExpenseCategory {
   name: string;
@@ -9,12 +20,68 @@ interface ExpenseCategory {
 }
 
 interface ExpenseChartProps {
-  expenses: ExpenseCategory[];
+  transactions: Transaction[];
 }
 
-const ExpenseChart: React.FC<ExpenseChartProps> = ({ expenses }) => {
+const ExpenseChart: React.FC<ExpenseChartProps> = ({ transactions }) => {
   const { language } = useTranslation();
-  
+  const [selectedMonth, setSelectedMonth] = useState<string>('all'); // 'all' or 'YYYY-MM'
+
+  // Get unique months from transactions
+  const uniqueMonths = useMemo(() => {
+    const monthsSet = new Set<string>();
+    transactions
+      .filter(t => t.type === 'expense')
+      .forEach(t => {
+        const date = new Date(t.date);
+        const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        monthsSet.add(month);
+      });
+    return Array.from(monthsSet).sort().reverse(); // Sort in descending order (newest first)
+  }, [transactions]);
+
+  // Filter expenses by selected month
+  const filteredExpenses = useMemo(() => {
+    const filteredTransactions = selectedMonth === 'all' 
+      ? transactions.filter(t => t.type === 'expense')
+      : transactions.filter(t => {
+          const transactionDate = new Date(t.date);
+          const transactionMonth = `${transactionDate.getFullYear()}-${String(transactionDate.getMonth() + 1).padStart(2, '0')}`;
+          return t.type === 'expense' && transactionMonth === selectedMonth;
+        });
+
+    // Group expenses by description and sum amounts
+    const groupedExpenses = filteredTransactions.reduce((categories, transaction) => {
+      const existingCategory = categories.find(cat => cat.name === transaction.description);
+      if (existingCategory) {
+        existingCategory.value += transaction.amount;
+      } else {
+        categories.push({
+          name: transaction.description,
+          value: transaction.amount,
+          color: `#${Math.floor(Math.random()*16777215).toString(16)}`
+        });
+      }
+      return categories;
+    }, [] as { name: string; value: number; color: string }[]);
+
+    return groupedExpenses;
+  }, [transactions, selectedMonth]);
+
+  // Calculate total expenses for selected period
+  const totalExpenses = useMemo(() => {
+    return filteredExpenses.reduce((sum, category) => sum + category.value, 0);
+  }, [filteredExpenses]);
+
+  // Format month for display
+  const formatMonth = (month: string) => {
+    if (month === 'all') return language === 'en' ? 'All Months' : 'Tất cả các tháng';
+    const [year, monthNum] = month.split('-');
+    return language === 'en' 
+      ? `${monthNum}/${year}` 
+      : `${monthNum}/${year}`;
+  };
+
   // Colors for different expense categories
   const COLORS = [
     '#FF6384', // Hồng
@@ -54,21 +121,45 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ expenses }) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-200/50 overflow-hidden">
       <div className="px-6 py-4 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 border-b border-gray-200/30">
-        <h3 className="text-lg font-semibold text-gray-800 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
-          {language === 'en' ? 'Expense Analysis' : 'Phân tích chi tiêu'}
-        </h3>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+            <h3 className="text-lg font-semibold text-gray-800">
+              {language === 'en' ? 'Expense Analysis' : 'Phân tích chi tiêu'}
+            </h3>
+          </div>
+          
+          <div className="mt-2 sm:mt-0 flex items-center space-x-3">
+            <div className="text-sm font-medium text-gray-700">
+              {language === 'en' ? 'Total:' : 'Tổng cộng:'} 
+              <span className="font-bold text-red-600 ml-1">
+                {totalExpenses.toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')} VND
+              </span>
+            </div>
+            
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="input-focus block w-36 px-3 py-1.5 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <option value="all">{formatMonth('all')}</option>
+              {uniqueMonths.map(month => (
+                <option key={month} value={month}>{formatMonth(month)}</option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
       
       <div className="p-6">
-        {expenses.length > 0 ? (
+        {filteredExpenses.length > 0 ? (
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={expenses}
+                  data={filteredExpenses}
                   cx="50%"
                   cy="50%"
                   labelLine={true}
@@ -78,7 +169,7 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ expenses }) => {
                   dataKey="value"
                   nameKey="name"
                 >
-                  {expenses.map((entry, index) => (
+                  {filteredExpenses.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>

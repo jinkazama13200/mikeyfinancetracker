@@ -195,22 +195,7 @@ const Dashboard: React.FC = () => {
           </div>
 
           <ExpenseChart 
-            expenses={transactions
-              .filter(t => t.type === 'expense')
-              .reduce((categories, transaction) => {
-                const existingCategory = categories.find(cat => cat.name === transaction.description);
-                if (existingCategory) {
-                  existingCategory.value += transaction.amount;
-                } else {
-                  categories.push({
-                    name: transaction.description,
-                    value: transaction.amount,
-                    color: `#${Math.floor(Math.random()*16777215).toString(16)}`
-                  });
-                }
-                return categories;
-              }, [] as { name: string; value: number; color: string }[])
-            }
+            transactions={transactions}
           />
         </div>
       </main>
