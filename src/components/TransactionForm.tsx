@@ -102,15 +102,22 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
           <label htmlFor="date" className="block text-sm font-medium text-gray-700">
             {language === 'en' ? 'Date' : 'Ngày'}
           </label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-            className="input-focus mt-1 block w-full pl-3 pr-3 py-3 text-base border border-gray-300 rounded-xl shadow-sm transition duration-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-indigo-400"
-          />
+          <div className="relative">
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              required
+              className="input-focus mt-1 block w-full pl-12 pr-4 py-3 text-base border border-gray-300 rounded-xl shadow-sm transition duration-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 hover:border-indigo-400 appearance-none bg-white"
+            />
+            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+          </div>
         </div>
         
         <div className="space-y-2">
