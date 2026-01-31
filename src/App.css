@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .App-logo {
@@ -22,10 +25,12 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .App-link {
   color: #61dafb;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 @keyframes App-logo-spin {
@@ -41,6 +46,7 @@
 @media (max-width: 768px) {
   body {
     font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
   }
   
   .container {
@@ -68,6 +74,7 @@
 @media (max-width: 640px) {
   body {
     font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
   }
   
   .text-base {

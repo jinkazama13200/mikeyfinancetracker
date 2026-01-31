@@ -288,3 +288,24 @@
     min-height: 2.5rem;
   }
 }
+
+/* Apply JetBrains Mono font to all elements */
+body {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+p, span, div, a, button, input, select, textarea {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+table, th, td {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+.nav, .btn, .card, .form-control {
+  font-family: 'JetBrains Mono', monospace !important;
+}
