@@ -14,6 +14,13 @@
       "dest": "/index.html"
     }
   ],
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--max-old-space-size=4096",
+      "GENERATE_SOURCEMAP": "false",
+      "CI": "false"
+    }
+  },
   "github": {
     "enabled": true
   }
