@@ -9,29 +9,20 @@ interface SummaryCardProps {
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, type }) => {
   const { language } = useTranslation();
-  let bgColor = '';
-  let textColor = '';
   let icon = '';
 
   switch (type) {
     case 'income':
-      bgColor = 'bg-gradient-to-br from-green-50 to-emerald-50';
-      textColor = 'text-green-800';
       icon = '↑';
       break;
     case 'expense':
-      bgColor = 'bg-gradient-to-br from-red-50 to-rose-50';
-      textColor = 'text-red-800';
       icon = '↓';
       break;
     case 'balance':
-      bgColor = value >= 0 ? 'bg-gradient-to-br from-blue-50 to-indigo-50' : 'bg-gradient-to-br from-amber-50 to-yellow-50';
-      textColor = value >= 0 ? 'text-blue-800' : 'text-amber-800';
       icon = value >= 0 ? '💰' : '💸';
       break;
     default:
-      bgColor = 'bg-gradient-to-br from-gray-50 to-slate-50';
-      textColor = 'text-gray-800';
+      icon = '';
   }
 
   // Format title based on type

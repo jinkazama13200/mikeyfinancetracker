@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from '../i18n';
 
 interface BankRate {
@@ -22,17 +22,7 @@ const BankRatesTracker: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Simulate fetching data from Vietnamese banks
-  useEffect(() => {
-    fetchCurrencyRates();
-    
-    // Update rates every 5 minutes
-    const interval = setInterval(fetchCurrencyRates, 300000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchCurrencyRates = async () => {
+  const fetchCurrencyRatesCallback = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     
@@ -109,7 +99,17 @@ const BankRatesTracker: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [language]);
+
+  // Simulate fetching data from Vietnamese banks
+  useEffect(() => {
+    fetchCurrencyRatesCallback();
+    
+    // Update rates every 5 minutes
+    const interval = setInterval(() => fetchCurrencyRatesCallback(), 300000);
+    
+    return () => clearInterval(interval);
+  }, [fetchCurrencyRatesCallback]);
 
   // Format currency values
   const formatCurrency = (value: number): string => {

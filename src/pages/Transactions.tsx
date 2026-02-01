@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../i18n';
 import TransactionForm, { TransactionFormData } from '../components/TransactionForm';
@@ -7,9 +6,8 @@ import TransactionList from '../components/TransactionList';
 import { transactionApi, Transaction } from '../services/api';
 
 const Transactions: React.FC = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-  const { language, setLanguage } = useTranslation();
+  const { user } = useAuth();
+  const { language } = useTranslation();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [showForm, setShowForm] = useState(false);
 
@@ -92,11 +90,6 @@ const Transactions: React.FC = () => {
       // Fallback to local state in case of API failure
       setTransactions(transactions.map(t => t.id === id ? {...t, ...updatedTransaction} : t));
     }
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
   };
 
   return (

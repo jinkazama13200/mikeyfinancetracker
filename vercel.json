@@ -1,5 +1,5 @@
 {
-  "framework": "create-react-app",
+  "version": 2,
   "builds": [
     {
       "src": "package.json",
@@ -15,14 +15,7 @@
       "destination": "/index.html"
     }
   ],
-  "build": {
-    "env": {
-      "NODE_OPTIONS": "--max-old-space-size=4096",
-      "GENERATE_SOURCEMAP": "false",
-      "CI": "false"
-    }
-  },
   "github": {
-    "enabled": true
+    "enabled": false
   }
 }

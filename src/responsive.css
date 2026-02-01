@@ -252,6 +252,23 @@
   .slide-up {
     animation: none;
   }
+  
+  /* Compact header on mobile */
+  .flex.justify-between.h-16.items-center {
+    height: auto;
+    min-height: 3.5rem;
+    padding: 0.5rem 0;
+  }
+  
+  /* Adjust spacing in mobile header */
+  .sm\:hidden.flex.items-center {
+    margin-left: 0.5rem;
+  }
+  
+  /* Ensure logout button doesn't take too much space on mobile */
+  .btn-animated.px-4.py-2.text-xs.sm\:text-sm {
+    padding: 0.5rem;
+  }
 }
 
 /* Improve touch targets */
@@ -315,6 +332,60 @@
   .grid-cols-3 {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Responsive adjustments for dashboard layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Responsive adjustments for chart container */
+.chart-container {
+  min-height: 300px;
+}
+
+@media (min-width: 768px) {
+  .chart-container {
+    min-height: 400px;
+  }
+}
+
+/* Responsive adjustments for transaction list */
+.transaction-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .transaction-list {
+    max-height: 300px;
+  }
+}
+
+/* Flex layout improvements */
+.flex-responsive {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .flex-responsive {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.flex-item {
+  flex: 1;
+  min-width: 0; /* Allows flex items to shrink below content size */
 }
 
 /* Apply JetBrains Mono font to all elements */

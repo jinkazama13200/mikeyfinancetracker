@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../i18n';
-import { useTheme } from '../context/ThemeContext';
 import TransactionList from '../components/TransactionList';
 import SummaryCard from '../components/SummaryCard';
 import ExpenseChart from '../components/ExpenseChart';
@@ -10,10 +9,8 @@ import BankRatesTracker from '../components/BankRatesTracker';
 import { transactionApi, Transaction } from '../services/api';
 
 const Dashboard: React.FC = () => {
-  const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate();
-  const { language, setLanguage } = useTranslation();
+  const { user } = useAuth();
+  const { language } = useTranslation();
   const [balance, setBalance] = useState<number>(0);
   const [income, setIncome] = useState<number>(0);
   const [expenses, setExpenses] = useState<number>(0);
@@ -58,11 +55,6 @@ const Dashboard: React.FC = () => {
     setBalance(totalIncome - totalExpenses);
   }, [transactions]);
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
-
   const handleDeleteTransaction = async (id: string) => {
     try {
       await transactionApi.deleteTransaction(id);
@@ -102,7 +94,7 @@ const Dashboard: React.FC = () => {
           <SummaryCard title={language === 'en' ? 'Expenses' : 'Chi tiêu'} value={expenses} type="expense" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div className="dashboard-grid mb-6">
           <div className="bg-white/70 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 shadow-lg shadow-gray-200/30">
             <div className="px-4 sm:px-6 lg:px-7 py-4 sm:py-5 lg:py-6 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 border-b border-gray-200/30">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -127,7 +119,7 @@ const Dashboard: React.FC = () => {
                 </Link>
               </div>
             </div>
-            <div className="p-4 sm:p-6 lg:p-7">
+            <div className="p-4 sm:p-6 lg:p-7 transaction-list">
               <TransactionList 
                 transactions={transactions.slice(0, 5)} 
                 onDeleteTransaction={handleDeleteTransaction}
@@ -136,9 +128,11 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
 
-          <ExpenseChart 
-            transactions={transactions}
-          />
+          <div className="chart-container">
+            <ExpenseChart 
+              transactions={transactions}
+            />
+          </div>
         </div>
 
         <div className="mb-6">
